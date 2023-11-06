@@ -10,7 +10,7 @@ const Login = () => {
 
   return (
     <div className="container">
-      <Header />
+      
       <main>
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
