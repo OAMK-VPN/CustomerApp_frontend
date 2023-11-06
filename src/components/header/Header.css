@@ -1,0 +1,10 @@
+header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+
+}
+
+.login-container {
+  margin-left: auto;
+}
