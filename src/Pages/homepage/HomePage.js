@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
 import { Routes, Route, Link} from "react-router-dom";
-import '../homepage/HomePage.css'
+import './HomePage.css'
 import Login from "../login/Login"
 import SignUp from "../signup/SignUp"
-import Header from '../header/Header'
-import ParcelFinder from '../parcel-finder/ParcelFinder'
+import Header from '../../components/header/Header'
+import ParcelFinder from '../../components/parcel-finder/ParcelFinder'
 
 import sendAParcel from '../../assets/sendAParcel.png'
 import sendAForm from '../../assets/sendAForm.png'
