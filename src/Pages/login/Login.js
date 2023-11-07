@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { getAllCredentials } from "../../userCredentials";
 import { useNavigate } from 'react-router-dom';
-
+import keys from "../../assets/key-chain.png"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +15,10 @@ const Login = () => {
   const credentials = getAllCredentials();
 
   const printCredentials = () => { console.log(credentials); };
-
+  const UserInputHandler = (e) => {
+    const sanitaziedInput = e.target.value.replace(/[^A-Za-z0-9@.]/g, '');
+    setEmail(sanitaziedInput);
+  }
 
 
   const loginHandler = (e) => {
@@ -43,39 +46,40 @@ const Login = () => {
 
 
   return (
-    <div className={styles.container}>
+    <div className={styles.parent_form}>
+      <form className={styles.form} onSubmit={loginHandler}>
+      <img 
+      src = {keys}
+      style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
+      />
+        <label className={styles.label} htmlFor="email">Email</label>
+        <input
+
+          className={styles.login_input}
+          id = "email"
+          value={email}
+          onChange={UserInputHandler}
+          name="email"
+          type="email"
+          />
+
+
+        <label className={styles.label} htmlFor="password">Password</label>
+        <input
+          className={styles.login_input}
+          id = "password"
+          value={password}
+          onChange={event => setPassword(event.target.value)}
+          name="password"
+          type="password"
+        />
+
       
-      <main>
-        <h1>Login</h1>
-        <form onSubmit={loginHandler}>
-          <div className="form-group">
-            <label htmlFor="email">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
-            <button type="submit" className="btn btn-primary">Login</button>
-          </div>
-        </form>
-        {error && <p className="text-danger">{error}</p>}
-      <Link to={`/RestorePassword`}> Restore Password</Link> <br />
-      <Link to={`/CreateAccount`}> Create Account</Link>
-      </main>
+      <button className={styles.login_button}>Login</button> <br />
+      <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link> <br />
+      <Link to={`/CreateAccount`} className={styles.create_account}>Create Account</Link>
+    
+    </form>
     </div>
   );
 };

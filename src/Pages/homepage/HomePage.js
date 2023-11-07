@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Routes, Route, Link} from "react-router-dom";
 import './HomePage.css'
 import Login from "../login/Login"
-import SignUp from "../CreateAccount/CreateAccount"
+import SignUp from "../CreateAccount/SignUp.js"
 import Header from '../../components/header/Header'
 import ParcelFinder from '../../components/parcel-finder/ParcelFinder'
 
