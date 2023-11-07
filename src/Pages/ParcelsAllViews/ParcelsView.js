@@ -15,7 +15,7 @@ const ParcelsView = () => {
   }, []); */
 
   const userName = useParams().userName;
-  useEffect(() => {console.log(userName)});
+  useEffect(() => {console.log("Which user is using the App now? "+ userName)});
      
   return (
     <div>
@@ -31,7 +31,7 @@ const ParcelsView = () => {
 
       <div className={styles.parcelsTable}>
       <table className={styles.th}>      
-      <thead> <tr> <th>Parcel ID</th> <th>Date</th> <th>Name</th> <th>Status</th> </tr>  </thead>
+      <thead> <tr> <th>Parcel ID</th> <th>Date</th> <th>Recipient Address</th> <th>Status</th> </tr>  </thead>
       <tbody>
         {parcels.map((parcel) => (
           
@@ -39,7 +39,7 @@ const ParcelsView = () => {
             userName={userName}
             parcelID={parcel.id}
             date={parcel.date}
-            name={parcel.name}
+            recipientAddress={parcel.recipientAddress}
             status={parcel.status}
             key={parcel.id}
           /> 

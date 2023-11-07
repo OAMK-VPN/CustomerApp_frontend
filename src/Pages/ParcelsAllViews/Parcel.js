@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 /* This component is used to display a single parcel in the parcels view. */
 
-export default function Parcel({ userName, parcelID, date, name, status }) {
+export default function Parcel({ userName, parcelID, date, recipientAddress, status }) {
   return (
     <tr className={styles} data-testid={`parcel-${parcelID}`}>
       
       
       
-      <td> <Link to={`/${userName}/parcels/${parcelID}`}> {parcelID}</Link> </td> <td> {date} </td> <td> {name} </td> <td> {status} </td> 
+      <td> <Link to={`/${userName}/parcels/${parcelID}`}> {parcelID}</Link> </td> <td> {date} </td> <td> {recipientAddress} </td> <td> {status} </td> 
       
       
      

@@ -69,7 +69,7 @@ import { useParams, useNavigate } from 'react-router-dom';
       
       <br />
       <button>Next</button> <br />
-      {/* <button>Delete Account</button> <br /> */}
+
 
 
     </form>
