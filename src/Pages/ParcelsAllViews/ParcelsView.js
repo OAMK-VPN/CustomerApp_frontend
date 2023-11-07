@@ -15,7 +15,7 @@ const ParcelsView = () => {
   }, []); */
 
   const userName = useParams().userName;
-  useEffect(() => {console.log(userName)});
+  useEffect(() => {console.log("Which user is using the App now? "+ userName)});
      
   return (
     <div>
@@ -39,7 +39,7 @@ const ParcelsView = () => {
             userName={userName}
             parcelID={parcel.id}
             date={parcel.date}
-            name={parcel.name}
+            recipientAddress={parcel.recipientAddress}
             status={parcel.status}
             key={parcel.id}
           /> 
