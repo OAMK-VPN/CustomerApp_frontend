@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import styles from "./RestorePassword.module.css";
 import { Link } from "react-router-dom";
-
 import { getAllCredentials } from "../../userCredentials";
 import { useNavigate } from 'react-router-dom';
+import keys from "../../assets/key-chain.png"
 
 
 export default function Login() {
@@ -28,31 +29,35 @@ export default function Login() {
     });
 
     if (isUserFound) {
-      alert('Your Email: '+ email +' and your Password: '+password);
+      alert('Your Email: '+ email +' and your Password: '+ password);
     } else {
       alert('No such an user was found. Please try again.');
     }
+    navigate('/login');
   };
 
 
   
 
   return (
-    <div className>
-    <h1>Restore Password</h1>
-    <form onSubmit={getPassword}>
-      <label>
-        Email:
+    <div className={styles.parent_form}>
+      <form className={styles.form} onSubmit={getPassword}>
+      <img 
+      src = {keys}
+      style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
+      />
+        <label className={styles.label} htmlFor="email">Email</label>
         <input
+
+          className={styles.input_box}
+          id = "email"
           value={email}
-          onChange={event => setEmail(event.target.value)}
+          onChange={e => setEmail(e.target.value)}
           name="email"
-          type="text"
-        />
-      </label>
-      <br />
-      <button>Restore</button> <br />
+          type="email"
+          />
+      
+      <button className={styles.restore_button}>Restore</button> <br />
     </form>
     </div>
-  );
-}
+)}

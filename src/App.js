@@ -4,9 +4,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import HomePage from './Pages/homepage/HomePage';
 import Login from './Pages/login/Login';
-import Signup from './Pages/CreateAccount/CreateAccount';
+import Signup, { SignUp } from './Pages/CreateAccount/SignUp';
 
-import CreateAccount from './Pages/CreateAccount/CreateAccount';
 import RestorePassword from './Pages/RestorePassword/RestorePassword';
 import ParcelsView from './Pages/ParcelsAllViews/ParcelsView';
 import ParcelDetailsView from './Pages/ParcelsAllViews/ParcelDetailsView';
@@ -24,7 +23,7 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/CreateAccount" element={<CreateAccount />} />
+            <Route path="/CreateAccount" element={<SignUp />} />
             <Route path="/RestorePassword" element={<RestorePassword />} />
 
             <Route path="/:userName/ParcelsView" element={<ParcelsView />} />
