@@ -1,0 +1,12 @@
+.parcel {
+  
+  background-color:#FFD700;
+  height:200px;
+  width:100px;
+  float:center;
+  
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+}

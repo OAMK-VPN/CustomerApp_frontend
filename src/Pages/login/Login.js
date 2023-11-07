@@ -1,19 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from "react";
+import styles from "./Login.module.css";
+import { Link } from "react-router-dom";
+
+import { getAllCredentials } from "../../userCredentials";
+import { useNavigate } from 'react-router-dom';
+
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  
+  const navigate = useNavigate();
+  const credentials = getAllCredentials();
 
-  const handleSubmit = (e) => {
-  }
+  const printCredentials = () => { console.log(credentials); };
+
+
+
+  const loginHandler = (e) => {
+    e.preventDefault();
+    printCredentials();
+    let isAuthenticated = false;
+    let userName = '';
+
+    credentials.forEach((credential) => {
+      if (email === credential.email && password === credential.password) {
+        isAuthenticated = true;
+        userName = credential.userName;
+      }
+    });
+
+    if (isAuthenticated) {
+      navigate(`/${userName}/ParcelsView`);
+    } else {
+      alert('Invalid username or password. Please try again.');
+    }
+  };
+
+
+
+
 
   return (
-    <div className="container">
+    <div className={styles.container}>
       
       <main>
         <h1>Login</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={loginHandler}>
           <div className="form-group">
             <label htmlFor="email">Email</label>
             <input
@@ -39,6 +73,8 @@ const Login = () => {
           </div>
         </form>
         {error && <p className="text-danger">{error}</p>}
+      <Link to={`/RestorePassword`}> Restore Password</Link> <br />
+      <Link to={`/CreateAccount`}> Create Account</Link>
       </main>
     </div>
   );
