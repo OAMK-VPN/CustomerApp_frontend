@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
 
 export const SignUp = (props) => {
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [name, setName] = useState('');
 
+    const navigate = useNavigate();
+
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email);
+        alert('You have successfully created your account. Please login.');
+    }
+
+    const handleAlreadyHaveAccount = () => {
+        navigate('/login');
     }
 
     return (
@@ -22,7 +29,7 @@ export const SignUp = (props) => {
             <input value={pass} onChange={(e) => setPass(e.target.value)} type="password" placeholder="********" id="password" name="password" />
             <button type="submit">Log In</button>
         </form>
-        <button className="link-btn" onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
+        <button className="link-btn" onClick={handleAlreadyHaveAccount}>Already have an account? Login here.</button>
     </div>
     )
 }
