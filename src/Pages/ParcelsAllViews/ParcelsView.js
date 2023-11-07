@@ -31,7 +31,7 @@ const ParcelsView = () => {
 
       <div className={styles.parcelsTable}>
       <table className={styles.th}>      
-      <thead> <tr> <th>Parcel ID</th> <th>Date</th> <th>Name</th> <th>Status</th> </tr>  </thead>
+      <thead> <tr> <th>Parcel ID</th> <th>Date</th> <th>Recipient Address</th> <th>Status</th> </tr>  </thead>
       <tbody>
         {parcels.map((parcel) => (
           
