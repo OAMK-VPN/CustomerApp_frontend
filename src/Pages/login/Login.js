@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 import { getAllCredentials } from "../../userCredentials";
 import { useNavigate } from 'react-router-dom';
-import keys from "../../assets/key-chain.png"
+import login_lock from "../../assets/login_lock.svg"
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -49,7 +49,7 @@ const Login = () => {
     <div className={styles.parent_form}>
       <form className={styles.form} onSubmit={loginHandler}>
       <img 
-      src = {keys}
+      src = {login_lock}
       style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
       />
         <label className={styles.label} htmlFor="email">Email</label>

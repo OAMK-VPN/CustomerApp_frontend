@@ -3,7 +3,7 @@ import styles from "./RestorePassword.module.css";
 import { Link } from "react-router-dom";
 import { getAllCredentials } from "../../userCredentials";
 import { useNavigate } from 'react-router-dom';
-import keys from "../../assets/key-chain.png"
+import restore_psw from "../../assets/restore_psw.svg"
 
 
 export default function Login() {
@@ -43,7 +43,7 @@ export default function Login() {
     <div className={styles.parent_form}>
       <form className={styles.form} onSubmit={getPassword}>
       <img 
-      src = {keys}
+      src = {restore_psw}
       style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
       />
         <label className={styles.label} htmlFor="email">Email</label>

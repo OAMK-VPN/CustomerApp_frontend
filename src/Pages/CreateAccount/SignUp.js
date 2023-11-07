@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
-import logo from "../../assets/logo_b.png"
+import new_account from "../../assets/new_account.svg"
 
 export const SignUp = (props) => {
     const [email, setEmail] = useState('');
@@ -36,7 +36,7 @@ export const SignUp = (props) => {
         <div className={styles.parent_form}>
           <form className={styles.form} onSubmit={submitHandler}>
             <img 
-              src = {logo}
+              src = {new_account}
               style={{ width: '25%', height: 'auto', paddingTop: "15%", paddingBottom: "10%"}}
             />
 
