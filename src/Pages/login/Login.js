@@ -34,7 +34,7 @@ const Login = () => {
     if (isAuthenticated) {
       navigate(`/${userName}/ParcelsView`);
     } else {
-      alert('Invalid username or password. Please try again.');
+      alert('Invalid email or password. Please try again.');
     }
   };
 
