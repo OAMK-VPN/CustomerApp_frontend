@@ -1,14 +1,8 @@
 import React, { useState } from 'react'
 import { Routes, Route, Link} from "react-router-dom";
-import './HomePage.css'
-import Login from "../login/Login"
-import SignUp from "../CreateAccount/SignUp.js"
-import Header from '../../components/header/Header'
-import ParcelFinder from '../../components/parcel-finder/ParcelFinder'
-
-import sendAParcel from '../../assets/sendAParcel.png'
-import sendAForm from '../../assets/sendAForm.png'
-import applyJob from '../../assets/apply.png'
+import styles from './HomePage.module.css'
+import search from "../../assets/search.svg"
+import logo from "../../assets/test_logo.svg"
 
 
 const HomePage = () => {
@@ -19,31 +13,45 @@ const HomePage = () => {
   }
 
   return (
-    <div className="container">
-      <Header />
-      <main>
-        <ParcelFinder/>
-        <div className="content">
-          <img src={sendAParcel} alt="How to send a parcel?" />
-          <button text="Send a parcel" href="/send-parcel">
-            Send a parcel
+      <div className = {styles.parent_container}>
+        <div className = {styles.footer}>
+          <img 
+              src = {logo}
+              style={{ width: '6%', height: 'auto', maxWidth: '45px'}}
+          />
+          <Link to = "login" className= {styles.loginLink}> Login </Link>
+        </div>
+  
+        <div class = {styles.parent_mainText}>
+          <div class = {styles.mainText}>
+            <p><span class = {styles.trackWord}>Track</span></p>
+            <p><span class = {styles.andWord}>and</span></p>
+            <p><span class = {styles.traceWord}>Trace</span></p>
+          </div>
+
+
+          <div className = {styles.searchBox}>
+            <input type="text" placeholder="Parcel id" className = {styles.searchinput}/>
+            <button>Find</button>
+          </div>
+        </div>
+
+
+        <div className= {styles.buttons_container}>
+          <button className= {styles.bottom_button}>
+            <span>Send parcel</span>
+          </button>
+
+          <button className= {styles.bottom_button}>
+            <span>My post</span>
+          </button>
+
+          <button className= {styles.bottom_button}>
+            <span>Pickup</span>
           </button>
         </div>
-        <div className="content">
-          <img src={sendAForm} alt="Not sure about the price?" />
-          <button text="Send a form" href="/send-form">
-            Send a form
-          </button>
-        </div>
-        <div className="content">
-          <img src={applyJob} alt="We're hiring" />
-          <button text="Apply" href="/send-application">
-            Apply
-          </button>
-        </div>
-      </main>
-    </div>
-  );
+      </div>
+    );
 };
 
 export default HomePage;
