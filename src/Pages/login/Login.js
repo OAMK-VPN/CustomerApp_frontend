@@ -52,7 +52,8 @@ const Login = () => {
       src = {login_lock}
       style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
       />
-        <label className={styles.label} htmlFor="email">Email</label>
+      <div>
+        <label className={styles.label} htmlFor="email">Email</label><br/>
         <input
 
           className={styles.login_input}
@@ -62,9 +63,10 @@ const Login = () => {
           name="email"
           type="email"
           />
+      </div>
 
-
-        <label className={styles.label} htmlFor="password">Password</label>
+      <div>
+        <label className={styles.label} htmlFor="password">Password</label><br/>
         <input
           className={styles.login_input}
           id = "password"
@@ -73,7 +75,7 @@ const Login = () => {
           name="password"
           type="password"
         />
-
+      </div>
       
       <button className={styles.login_button}>Login</button> <br />
       <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link> <br />

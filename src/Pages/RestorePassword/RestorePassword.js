@@ -46,9 +46,9 @@ export default function Login() {
       src = {restore_psw}
       style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
       />
-        <label className={styles.label} htmlFor="email">Email</label>
+      <div>
+        <label className={styles.label} htmlFor="email">Email</label><br/>
         <input
-
           className={styles.input_box}
           id = "email"
           value={email}
@@ -56,7 +56,8 @@ export default function Login() {
           name="email"
           type="email"
           />
-      
+
+      </div>
       <button className={styles.restore_button}>Restore</button> <br />
     </form>
     </div>
