@@ -1,44 +1,105 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 
 import { getAllCredentials } from "../../userCredentials";
 import { useNavigate } from 'react-router-dom';
 import login_lock from "../../assets/login_lock.svg"
-
+import { useAuth } from "../../AuthContext";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [response, setResponse] = useState(null);
+
   
   const navigate = useNavigate();
-  const credentials = getAllCredentials();
-
-  const printCredentials = () => { console.log(credentials); };
   const UserInputHandler = (e) => {
     const sanitaziedInput = e.target.value.replace(/[^A-Za-z0-9@.]/g, '');
     setEmail(sanitaziedInput);
   }
+  const { state,dispatch } = useAuth();
 
 
-  const loginHandler = (e) => {
-    e.preventDefault();
-    printCredentials();
-    let isAuthenticated = false;
-    let userName = '';
 
-    credentials.forEach((credential) => {
-      if (email === credential.email && password === credential.password) {
-        isAuthenticated = true;
-        userName = credential.userName;
+  // token check (user logged in before)
+  useEffect(() => {
+    const checkTokenValidity = async () => {
+      const token = localStorage.getItem('token');
+  
+      if (token) {
+        try {
+          const response = await fetch('http://localhost:8080/validate-token', {
+            method: 'GET',
+            headers: {
+              authorization: token,
+            },
+          });
+  
+          if (response.ok) {
+            const data = await response.text();
+            const username = data;
+            dispatch({
+              type: 'LOGIN',
+              payload: {
+                user: { username },
+              },
+            });
+            navigate(`/${username}/ParcelsView`);
+          } else {
+            navigate('/login');
+            alert("wrong token")
+          }
+        } catch (error) {
+          console.error('Error during token validation:', error);
+        }
       }
-    });
+    };
+  
+    checkTokenValidity();
+  }, [dispatch, navigate]);
 
-    if (isAuthenticated) {
-      navigate(`/${userName}/ParcelsView`);
-    } else {
-      alert('Invalid email or password. Please try again.');
-    }
+
+
+
+
+  // login
+  const loginHandler = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:8080/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      });
+
+
+      if (!response.ok) {
+        throw new Error("Error") }
+
+      const responseData = await response.json();
+      setResponse(responseData);
+      const { username, token } = responseData;
+
+      localStorage.setItem('token', token);
+      dispatch({
+        type: 'LOGIN',
+        payload: {
+          user: { username },
+        },
+      });
+
+      navigate(`/${username}/ParcelsView`);
+      } catch (error) {
+        setError('Invalid email or password. Please try again.');
+        alert(error);
+      }
   };
 
 

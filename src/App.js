@@ -11,7 +11,7 @@ import ParcelsView from './Pages/ParcelsAllViews/ParcelsView';
 import ParcelDetailsView from './Pages/ParcelsAllViews/ParcelDetailsView';
 import FillUpParcelSizes from './Pages/sendingParcel/FillUpParcelSizes';
 import FillUpRecieverInfo from './Pages/sendingParcel/FillUpRecieverInfo';
-
+import ParcelDetails from './Pages/ParcelsAllViews/Parceldetails';
 
 
 const App = () => {
@@ -27,9 +27,9 @@ const App = () => {
             <Route path="/RestorePassword" element={<RestorePassword />} />
 
             <Route path="/:userName/ParcelsView" element={<ParcelsView />} />
-            <Route path="/:userName/Parcels/:parcelID"  element={<ParcelDetailsView />} />
+            <Route path="/:userName/Parcels/:parcelID"  element={<ParcelDetails />} />
             <Route path='/:userName/FillUpParcelSizes' element={<FillUpParcelSizes />} />
-            <Route path='/:userName/FillUpRecieverInfo' element={<FillUpRecieverInfo />} />
+            <Route path='/:userName/FillUpRecieverInfo' element={<FillUpRecieverInfo />} /> 
         </Routes>
     
       </div>
