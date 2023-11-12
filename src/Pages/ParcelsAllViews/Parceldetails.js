@@ -41,15 +41,15 @@ const { userName, parcelID } = useParams();
   
   return (
     <div>
-      <h2>Parcel Details</h2>
+      <h2> Parcel Details </h2>
       <ul>
-        <li>Id {parcelDetails.id}</li>
-        <li>Date {parcelDetails.date}</li>
-        <li>Parcel name {parcelDetails.parcelName}</li>
-        <li>Sender {parcelDetails.senderId}</li>
-        <li>Receiver {parcelDetails.receiverId}</li>
-        <li>Pickup {parcelDetails.pickupLocation}</li>
-        <li>Status {parcelDetails.status}</li>
+        <li> Id {parcelDetails.id} </li>
+        <li>  Date {parcelDetails.date} </li>
+        <li> Parcel name {parcelDetails.parcelName} </li>
+        <li> Sender {parcelDetails.senderId} </li>
+        <li> Receiver {parcelDetails.receiverId} </li>
+        <li> Pickup {parcelDetails.pickupLocation} </li>
+        <li> Status {parcelDetails.status} </li>
       </ul>
 
       <Link to={`/${userName}/ParcelsView`}>Back to parcels overview</Link>

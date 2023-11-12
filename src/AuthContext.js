@@ -1,38 +1,41 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 
 const AuthContext = createContext();
 
-const initialState = {
-  isAuthenticated: false,
-};
+const AuthProvider = ({ children }) => {
+  const [user, setUser] = useState(() => {
+    const storedToken = localStorage.getItem('token');
+    return storedToken ? { token: storedToken } : '';
+  });
 
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case 'LOGIN':
-      return {
-        ...state,
-        isAuthenticated: true,
-      };
-    case 'LOGOUT':
-      return {
-        ...state,
-        isAuthenticated: false,
-      };
-    default:
-      return state;
-  }
-};
+  const login = ({ username, token }) => {
+    localStorage.setItem('token', token);
+    setUser({ username, token });
+  };
 
-export const AuthProvider = ({ children }) => {
-  const [state, dispatch] = useReducer(authReducer, initialState);
+  const logout = () => {
+    setUser('');
+  };
+
+  const refreshToken = () => {
+    console.log('Refreshing user token...');
+  };
+
+  useEffect(() => {
+    if (user && user.token) {
+      localStorage.setItem('token', user.token);
+    } else if (user == '') {
+      localStorage.removeItem('token');
+    }
+  }, [user]);
 
   return (
-    <AuthContext.Provider value={{ state, dispatch }}>
+    <AuthContext.Provider value={{ user, login, logout, refreshToken }}>
       {children}
     </AuthContext.Provider>
   );
 };
 
-export const useAuth = () => {
-  return useContext(AuthContext);
-};
+const useAuth = () => useContext(AuthContext);
+
+export { AuthProvider, useAuth };

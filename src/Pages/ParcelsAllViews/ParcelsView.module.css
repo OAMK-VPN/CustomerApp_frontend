@@ -1,31 +1,52 @@
-.parcelsTable {
-  
-  background-color:#e4e4e4;
-  height: 70vh;
-  width: 60vh;
-  text-align:center;
-  float:center;
+.testnav {
   display: flex;
   justify-content: center;
-  
-  margin: auto;
-  padding: 0px;
-  border: 3px solid #ccc;
-
+  gap: 2%;
+  margin-bottom: 1vh;
 }
 
-th {
-  background-color:#5899d6;
-  text-align: center;
-  border: 0.5px solid;
-  padding: 5%;
 
+.divP {
+  display: flex;
+  justify-content: center;
 }
 
-td {
-  border: 1px black solid;
-  background-color:#f9f9fa;
+.divpTable {
+  width: 35%;
+  display: flex;
+  justify-content: center;
+}
+
+.pTable {
+  border-collapse: collapse;
+  border: 2.5px solid #b5b5b5;
+  width: 100%;
+}
+
+.pth {
+  border: 1px solid #a1a1a1;
+  background: #163760;
+  color: #ffffff;
+  padding: 7px;
+}
+
+.tableRow {
+  background-color: #ffffff;
   text-align: center;
-  padding: 20px;
+}
+
+.tableC {
+  padding: 5px;
+  border: 1px solid #d5d5d5;
+}
+
+
+.tableRow:hover {
+  background-color: #f7f7f7;
+  cursor: pointer;
+}
+
+.tableRow:active {
+  background-color: #f1f1f1;
 }
 

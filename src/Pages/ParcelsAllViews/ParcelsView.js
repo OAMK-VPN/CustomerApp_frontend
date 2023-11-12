@@ -1,58 +1,53 @@
 import React, {useEffect, useState} from "react";
-import {useParams,Link} from "react-router-dom";
+import {useParams,Link, redirect} from "react-router-dom";
 import styles from "./ParcelsView.module.css";
 import Parcel from "./Parcel";
 import ParcelDetails from "./Parceldetails";
 import { useAuth } from "../../AuthContext";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Redirect } from 'react-router-dom';
 
 const ParcelsView = () => {
-  const { state, dispatch } = useAuth();
+  const {user, logout} = useAuth();
   const [parcels, setParcels] = useState([]);
 
   const navigate = useNavigate();
-  const userName = state.userName;
+  const userName = user.username;
 
   const handleLogout = () => {
-    localStorage.removeItem('token');
-    dispatch({ type: 'LOGOUT' }); // ???
-    navigate('/');
+    logout();
+    return navigate('/');
   }
 
 
   useEffect(() => {
-    console.log(state.isAuthenticated)
     const fetchParcels = async () => {
       try {
-        const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:8080/parcels`, {
           method: 'GET',
           headers: {
-            Authorization: `${token}`,
+            Authorization: `${user.token}`,
           },
         });
+
         if (response.ok) {
           const data = await response.json();
-          setParcels(data);
-          dispatch({ type: 'LOGIN' });
-
+          setParcels(data.userParcels);
+          // userName = data.username; // 
         } else {
           console.error('Failed to fetch parcels:', response.statusText);
         }
-
-
       } catch (error) {
         console.error('Error during fetch:', error);
       }
     };
 
-    if (state.isAuthenticated) {
+    if (user && user.token) {
       fetchParcels();
-    } else {
-      dispatch({ type: 'LOGOUT' });
-      navigate('/login');
+    } else if (user === '') {
+      navigate("/login");
     }
-  }, [state.isAuthenticated, dispatch, navigate]);
+  }, [user, user.token, navigate]);
+
 
 
 
@@ -60,11 +55,8 @@ const ParcelsView = () => {
      
   return (
     <div>
-      {state.isAuthenticated ? (
-        // Render the component content only if authenticated
-        <>
           <h1>Posti</h1>
-          <nav>
+          <nav className= {styles.testnav}>
             <Link to={`/${userName}/FillUpParcelSizes`}>Send</Link> <br/>
             <Link to="/history">History  </Link> <br/>
             <Link to="/track">Track  </Link> <br/>
@@ -72,15 +64,14 @@ const ParcelsView = () => {
             <Link to={`/${userName}/Settings`}> Settings  </Link> 
           </nav>
 
-          <div className={styles.parcelsTable}>
-            <table className={styles.th}>
+          <div className={styles.divP}>
+          <div className = {styles.divpTable}>
+            <table className = {styles.pTable}>
               <thead>
-                <tr>
-                  <th>Parcel ID</th>
-                  <th>Date</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
+              <th className = {styles.pth} > Parcel ID </th>
+              <th className = {styles.pth} > Date </th>
+              <th className = {styles.pth} > Status </th>
+             </thead>
               <tbody>
                 {parcels.map((parcel) => (
                   <Parcel
@@ -94,10 +85,7 @@ const ParcelsView = () => {
               </tbody>
             </table>
           </div>
-        </>
-      ) : (
-        navigate('/login')
-      )}
+          </div>
     </div>
   );
 };
