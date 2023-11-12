@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Nunito:wght@300;400;500;600;700;800;900;1000&family=Raleway:wght@600;700;800;900&display=swap');
+
+
 .testnav {
   display: flex;
   justify-content: center;
@@ -18,9 +21,12 @@
 }
 
 .pTable {
+  width: 100%;
   border-collapse: collapse;
   border: 2.5px solid #b5b5b5;
-  width: 100%;
+  box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+  font-family: 'Nunito', sans-serif;
+  font-weight: 400;
 }
 
 .pth {
@@ -28,11 +34,15 @@
   background: #163760;
   color: #ffffff;
   padding: 7px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+
 }
 
 .tableRow {
   background-color: #ffffff;
   text-align: center;
+
 }
 
 .tableC {
