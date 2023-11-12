@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { getParcelById } from "../../parcelsInfo";
-import {useParams,Link} from "react-router-dom";
+import { useParams, Link} from "react-router-dom";
 
 const ParcelDetailsView = () => {
 
@@ -16,14 +16,14 @@ const ParcelDetailsView = () => {
       
       <tbody>
       <tr>
-      <ul >
-      <li>Sender Name: {parcel.name}</li>
-      <li>Sender Email: {parcel.senderEmail}</li>
-      <li>Sender Address: {parcel.senderAddress}</li>
-      <li>Recipient Name: </li>
-      <li>Recipient Email: {parcel.recipientEmail}</li>
-      <li>Recipint Address: {parcel.recipientAddress}</li>
-      </ul>   
+        <ul >
+          <li> Sender Name: {parcel.name} </li>
+          <li> Sender Email: {parcel.senderEmail} </li>
+          <li> Sender Address: {parcel.senderAddress} </li>
+          <li> Recipient Name: </li>
+          <li> Recipient Email: {parcel.recipientEmail} </li>
+          <li> Recipint Address: {parcel.recipientAddress} </li>
+        </ul>   
       </tr>
       <tr>
       <ul >

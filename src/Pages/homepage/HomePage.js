@@ -1,15 +1,20 @@
 import React, { useState } from 'react'
-import { Routes, Route, Link} from "react-router-dom";
+import { Routes, Route, Link, useNavigate} from "react-router-dom";
 import styles from './HomePage.module.css'
 import search from "../../assets/search.svg"
 import logo from "../../assets/test_logo.svg"
-
+import { useAuth } from '../../AuthContext';
 
 const HomePage = () => {
   const [currentForm, setCurrentForm] = useState('');
-
+  const { user }  = useAuth();
+  const navigate = useNavigate();
   const toggleForm = (formName) => {
     setCurrentForm(formName);
+  }
+
+  const handleMyPost = () => {
+    navigate('login'); // simple way, can be rewritten with the same logic as in login.js
   }
 
   return (
@@ -42,7 +47,7 @@ const HomePage = () => {
             <span>Send parcel</span>
           </button>
 
-          <button className= {styles.bottom_button}>
+          <button className= {styles.bottom_button} onClick={handleMyPost}>
             <span>My post</span>
           </button>
 

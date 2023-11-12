@@ -18,55 +18,40 @@ const Login = () => {
     const sanitaziedInput = e.target.value.replace(/[^A-Za-z0-9@.]/g, '');
     setEmail(sanitaziedInput);
   }
-  const { state,dispatch } = useAuth();
+  const { user, login } = useAuth();
 
 
-
-  // token check (user logged in before)
+  // already logged in
   useEffect(() => {
-    const checkTokenValidity = async () => {
-      const token = localStorage.getItem('token');
-  
-      if (token) {
-        try {
-          const response = await fetch('http://localhost:8080/validate-token', {
-            method: 'GET',
+    const validateToken = async () => {
+      try {
+        if (localStorage.getItem("token") !== null) {
+          const response = await fetch(`http://localhost:8080/validate-token`, {
+            method: "GET",
             headers: {
-              authorization: token,
+              Authorization: `${user.token}`,
             },
           });
-  
+          console.log("good")
           if (response.ok) {
-            const data = await response.text();
-            const username = data;
-            dispatch({
-              type: 'LOGIN',
-              payload: {
-                user: { username },
-              },
-            });
-            navigate(`/${username}/ParcelsView`);
+            const responseData = await response.json();
+            login({ username: responseData.username, token: responseData.token });
+            navigate(`/${responseData.username}/ParcelsView`);
           } else {
-            navigate('/login');
-            alert("wrong token")
           }
-        } catch (error) {
-          console.error('Error during token validation:', error);
         }
+      } catch (error) {
+        console.error(error);
       }
     };
-  
-    checkTokenValidity();
-  }, [dispatch, navigate]);
+
+    validateToken();
+  }, [user.token, navigate, login]);
 
 
-
-
-
-  // login
+  // yet to login
   const loginHandler = async (e) => {
     e.preventDefault();
-
     try {
       const response = await fetch('http://localhost:8080/login', {
         method: 'POST',
@@ -82,20 +67,10 @@ const Login = () => {
 
       if (!response.ok) {
         throw new Error("Error") }
+        const responseData = await response.json();
+        login({username: responseData.username, token: responseData.token});
+        navigate(`/${responseData.username}/ParcelsView`);
 
-      const responseData = await response.json();
-      setResponse(responseData);
-      const { username, token } = responseData;
-
-      localStorage.setItem('token', token);
-      dispatch({
-        type: 'LOGIN',
-        payload: {
-          user: { username },
-        },
-      });
-
-      navigate(`/${username}/ParcelsView`);
       } catch (error) {
         setError('Invalid email or password. Please try again.');
         alert(error);
