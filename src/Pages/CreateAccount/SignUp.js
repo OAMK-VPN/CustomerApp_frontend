@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
@@ -11,8 +12,8 @@ export const SignUp = (props) => {
     const [postalCode, setPostalCode] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
+    const [valid, setValid] = useState(null);
     const navigate = useNavigate();
-
 
 
     const InputSanitazier_city = (e) => {
@@ -25,11 +26,30 @@ export const SignUp = (props) => {
       setName(sanitaziedInput);
     }
 
+    const checkPasswordlen = () => {
+      setValid(password.length >= 12);
+    }
+
 
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        let usrnm = Math.random().toString(24).substring(2,12);
+        if (!email || !name || !city || !address || !postalCode || !password) {
+          toast.error("Please fill all the details", {
+            duration: 1000,
+            style: {
+              color: '#163760',
+            },
+            iconTheme: {
+              primary: '#163760',
+            }
+          });
+          return 
+        }
+
+
+        let usrnm = Math.random().toString(24).substring(2,12); // username gen
+
         try {
           const response = await fetch('http://localhost:8080/api/users/signup', {
             method: 'POST',
@@ -51,10 +71,18 @@ export const SignUp = (props) => {
             alert(`Your username: ${usrnm}`);
             navigate('/');
           } else {
-            alert(`This user already exists`);
+            //alert(`This user already exists`);
           }
         } catch (error) {
-          alert('error');
+          toast.error("Error", {
+            duration: 1000,
+            style: {
+              color: '#163760',
+            },
+            iconTheme: {
+              primary: '#163760',
+            }
+          });
         }
       };
 
@@ -64,6 +92,7 @@ export const SignUp = (props) => {
             <img 
               src = {new_account}
               style={{ width: '25%', height: 'auto', paddingTop: "8%", paddingBottom: "8%"}}
+              alt = 'Create an account'
             />
 
             {/* Email */}
@@ -134,20 +163,24 @@ export const SignUp = (props) => {
 
             {/* Password */}
             <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="password">Password</label><br/>
+              <label className={styles.label} htmlFor="password">Password {'(>12 )'}</label><br/>
               <input
-                className={styles.input_box}
+                className={valid ? styles.input_box : styles.input_box_inv}
                 id = "password"
                 value={password}
-                onChange={event => setPassword(event.target.value)}
+                onChange={event => {
+                  setPassword(event.target.value);
+                  checkPasswordlen();
+                }}
                 name="password"
                 type="password"
               />
             </div>
 
-        <button className={styles.create_button}>Create</button>
+        <button className={styles.create_button} onClick={submitHandler}>Create</button>
         <Link to={`/login`} className={styles.account_already}>Already have an account?</Link>
         </form>
+        <Toaster />
     </div>
     )
 }

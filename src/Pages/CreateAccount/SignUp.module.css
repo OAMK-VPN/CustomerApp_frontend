@@ -32,6 +32,17 @@
   margin-bottom: 5%;
 }
 
+.input_box_inv {
+  width: 95%;
+  height: 10%;
+  margin-bottom: 5%;
+  border: 2px dashed #cccccc;
+}
+
+.input_box_inv:focus {
+  outline: #163760;
+}
+
 
 .create_button {
     background-color: #163760;
