@@ -12,7 +12,9 @@ const NotFound = () => {
         src = {notfound}
         className = {styles.notfound}
         />
-        <button className = {styles.button_back} onClick={handleclick}>{'<'} Back to home</button>
+        <button className = {styles.button_back} onClick={handleclick}>
+            {'<'} Back to home
+        </button>
     </div>
     
     )
