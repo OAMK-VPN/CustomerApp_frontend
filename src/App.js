@@ -13,6 +13,7 @@ import FillUpParcelSizes from './Pages/sendingParcel/FillUpParcelSizes';
 import FillUpRecieverInfo from './Pages/sendingParcel/FillUpRecieverInfo';
 import ParcelDetails from './Pages/ParcelsAllViews/Parceldetails';
 import Usrsettings from './Pages/UserAccount/Usrsettings';
+import NotFound from './Pages/NotFound/NotFound';
 
 const App = () => {
 
@@ -31,6 +32,7 @@ const App = () => {
             <Route path='/:userName/FillUpParcelSizes' element={<FillUpParcelSizes />} />
             <Route path='/:userName/FillUpRecieverInfo' element={<FillUpRecieverInfo />} /> 
             <Route path="/settings" element={<Usrsettings />} /> {/* will be changed */}
+            <Route path = '*' element = {<NotFound />} />
         </Routes>
     
       </div>

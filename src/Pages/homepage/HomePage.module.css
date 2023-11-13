@@ -79,6 +79,7 @@
   cursor: pointer; 
   transition: border-color 0.5s;
   padding: 3.5%;
+  width: auto;
 }
 
 .searchBox button:hover {

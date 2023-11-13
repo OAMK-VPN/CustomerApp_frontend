@@ -17,29 +17,29 @@ const Usrsettings = () => {
                 <input className = {styles.input_box}  type="email" />
             </div>
             <div className={styles.input_child_container}>
-                <label>Full name</label>
+                <label className = {styles.settings_label}>Full name</label>
             <input className = {styles.input_box}  type="text" />
             </div>    
         </div>
 
         <div className={styles.input_container}>
             <div className={styles.input_child_container}>
-                <label>City</label>
+                <label className = {styles.settings_label}>City</label>
                 <input className = {styles.input_box}  type="text" />
             </div>
             <div className={styles.input_child_container}>
-                <label>Address</label>
+                <label className = {styles.settings_label}>Address</label>
             <input className = {styles.input_box}  type="text" />
             </div>    
         </div>
 
         <div className={styles.input_container}>
             <div className={styles.input_child_container}>
-                <label>Postal code</label>
+                <label className = {styles.settings_label}>Postal code</label>
                 <input className = {styles.input_box}  type="text" />
             </div>
             <div className={styles.input_child_container}>
-                <label>Password</label>
+                <label className = {styles.settings_label}>Password</label>
             <input className = {styles.input_box} type="text" />
             </div>    
         </div>

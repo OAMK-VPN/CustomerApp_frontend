@@ -9,6 +9,7 @@ export const SignUp = (props) => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [postalCode, setPostalCode] = useState('');
+    const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
     const navigate = useNavigate();
 
@@ -20,24 +21,49 @@ export const SignUp = (props) => {
     }
 
     const InputSanitazier_name = (e) => {
-      let sanitaziedInput = e.target.value.replace(/[^A-Za-z]/g, '');
+      let sanitaziedInput = e.target.value.replace(/[^A-Za-z ]/g, '');
       setName(sanitaziedInput);
     }
 
 
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
-        alert('You have successfully created your account. Please login.');
-        navigate('/login');
-    }
+        let usrnm = Math.random().toString(24).substring(2,12);
+        try {
+          const response = await fetch('http://localhost:8080/api/users/signup', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: usrnm,
+              email: email,
+              fullname: name,
+              city: city,
+              address: address,
+              zipcode: postalCode,
+              password: password,
+            }),
+          });
+      
+          if (response.ok) {
+            alert(`Your username: ${usrnm}`);
+            navigate('/');
+          } else {
+            alert(`This user already exists`);
+          }
+        } catch (error) {
+          alert('error');
+        }
+      };
 
     return (
         <div className={styles.parent_form}>
           <form className={styles.form} onSubmit={submitHandler}>
             <img 
               src = {new_account}
-              style={{ width: '25%', height: 'auto', paddingTop: "8%", paddingBottom: "10%"}}
+              style={{ width: '25%', height: 'auto', paddingTop: "8%", paddingBottom: "8%"}}
             />
 
             {/* Email */}
@@ -80,7 +106,20 @@ export const SignUp = (props) => {
               />
             </div>
 
-            {/* Password */}
+            {/* Address */}
+            <div className= {styles.input_boxp}>
+              <label className={styles.label} htmlFor="Address">Address</label><br/>
+              <input
+                className={styles.input_box}
+                id = "address"
+                value={address}
+                onChange={event => setAddress(event.target.value)}
+                name="address"
+                type="text"
+              />
+            </div>
+
+            {/* Postal code */}
             <div className= {styles.input_boxp}>
               <label className={styles.label} htmlFor="postalCode">Postal Code</label><br/>
               <input

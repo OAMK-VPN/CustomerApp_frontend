@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Routes, Route, Link, useNavigate} from "react-router-dom";
 import styles from './HomePage.module.css'
-import search from "../../assets/search.svg"
 import logo from "../../assets/test_logo.svg"
 import { useAuth } from '../../AuthContext';
 
@@ -22,7 +21,7 @@ const HomePage = () => {
         <div className = {styles.footer}>
           <img 
               src = {logo}
-              style={{ width: '6%', height: 'auto', maxWidth: '45px'}}
+              style={{ width: '8%', height: 'auto', maxWidth: '45px'}}
           />
           <Link to = "login" className= {styles.loginLink}> Login </Link>
         </div>
