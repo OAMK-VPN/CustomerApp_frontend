@@ -12,7 +12,7 @@ export const SignUp = (props) => {
     const [postalCode, setPostalCode] = useState('');
     const [address, setAddress] = useState('');
     const [city, setCity] = useState('');
-    const [valid, setValid] = useState(null);
+    const [valid, setValid] = useState(false);
     const navigate = useNavigate();
 
 
@@ -34,7 +34,7 @@ export const SignUp = (props) => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if (!email || !name || !city || !address || !postalCode || !password) {
+        if (!email || !name || !city || !address || !postalCode || !password || !valid) {
           toast.error("Please fill all the details", {
             duration: 1000,
             style: {

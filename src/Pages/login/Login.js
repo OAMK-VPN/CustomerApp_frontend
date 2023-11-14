@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import toast, { Toaster } from 'react-hot-toast';
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
 
-import { getAllCredentials } from "../../userCredentials";
+
 import { useNavigate } from 'react-router-dom';
 import login_lock from "../../assets/login_lock.svg"
 import { useAuth } from "../../AuthContext";
@@ -22,7 +23,7 @@ const Login = () => {
 
 
   // already logged in
-  useEffect(() => {
+  {/* useEffect(() => {
     const validateToken = async () => {
       try {
         if (localStorage.getItem("token") !== null) {
@@ -46,34 +47,44 @@ const Login = () => {
     };
 
     validateToken();
-  }, [user.token, navigate, login]);
+  }, [user.token, navigate, login]); */}
 
 
   // yet to login
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/login', {
-        method: 'POST',
+      const response = await fetch('http://localhost:8080/api/users/signIn', { // http://localhost:8080/login
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          email,
+          username: email,       // will be replaced with email
           password,
         }),
       });
 
 
-      if (!response.ok) {
-        throw new Error("Error") }
-        const responseData = await response.json();
-        login({username: responseData.username, token: responseData.token});
-        navigate(`/${responseData.username}/ParcelsView`);
+
+      const responseData = await response.json();
+      if (!response.ok || !responseData.active) {
+        throw new Error('') 
+      }
+        // if success
+        //login({username: responseData.username, token: responseData.token});
+        //navigate(`/${responseData.username}/ParcelsView`);
 
       } catch (error) {
-        setError('Invalid email or password. Please try again.');
-        alert(error);
+        toast.error("Authentication error", {
+          duration: 1500,
+          style: {
+            color: '#163760',
+          },
+          iconTheme: {
+            primary: '#163760',
+          }
+        });
       }
   };
 
@@ -87,6 +98,7 @@ const Login = () => {
       <img 
       src = {login_lock}
       style={{ width: '25%', height: 'auto', paddingTop: "25%", paddingBottom: "10%"}}
+      alt = 'Login'
       />
       <div>
         <label className={styles.label} htmlFor="email">Email</label><br/>
@@ -97,7 +109,7 @@ const Login = () => {
           value={email}
           onChange={UserInputHandler}
           name="email"
-          type="email"
+          type="text"
           />
       </div>
 
@@ -117,7 +129,8 @@ const Login = () => {
       <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link> <br />
       <Link to={`/CreateAccount`} className={styles.create_account}>Create Account</Link>
     
-    </form>
+      </form>
+      <Toaster/>
     </div>
   );
 };
