@@ -4,7 +4,8 @@ import styles from "./ParcelsView.module.css";
 import Parcel from "./Parcel";
 import ParcelDetails from "./Parceldetails";
 import { useAuth } from "../../AuthContext";
-import { useNavigate, Redirect } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import axios from "axios";
 
 const ParcelsView = () => {
   const {user, logout} = useAuth();
@@ -20,22 +21,16 @@ const ParcelsView = () => {
   useEffect(() => {
     const fetchParcels = async () => {
       try {
-        const response = await fetch(parcels_all_point, {
-          method: 'GET',
+        const response = await axios.get(parcels_all_point, {
           headers: {
             Authorization: `${user.token}`,
           },
         });
 
-        if (response.ok) {
-          const data = await response.json();
-          setParcels(data.userParcels);
-          // userName = data.username; // 
-        } else {
-          console.error('Failed to fetch parcels:', response.statusText);
-        }
+          setParcels(response.data.userParcels);
       } catch (error) {
         console.error('Error during fetch:', error);
+        navigate('/login')
       }
     };
 

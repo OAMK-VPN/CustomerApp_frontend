@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
-
+import axios from "axios";
 
 import { useNavigate } from 'react-router-dom';
 import login_lock from "../../assets/login_lock.svg"
@@ -10,13 +10,7 @@ import { useAuth } from "../../AuthContext";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [response, setResponse] = useState(null);
   const login_point = process.env.REACT_APP_LOGIN_API;
-
-
-  
-
 
   
   const navigate = useNavigate();
@@ -56,28 +50,25 @@ const Login = () => {
 
 
   // yet to login
+  // http://localhost:8080/api/users/signIn
+  // useEffect?? (probably not)
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(login_point, { // http://localhost:8080/api/users/signIn
-        method: 'POST',
-        headers: {
+      const response = await axios.post( login_point, 
+      { 
+        email: email,       // will be replaced with email username: email,
+        password: password,
+      }, 
+      {
+        headers: 
+        {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          email,       // will be replaced with email username: email,
-          password,
-        }),
       });
 
-
-
-      const responseData = await response.json();
-      if (!response.ok ) { //|| !responseData.active
-        throw new Error('') 
-      }
-        // if success
-        login({username: responseData.username, token: responseData.token});
+        login({username: response.data.username, token: response.data.token});
+        console.log("good");
         toast.success("Success", {
           duration: 750,
           style: {
@@ -94,7 +85,7 @@ const Login = () => {
 
       } catch (error) {
         toast.error("Authentication error", {
-          duration: 1500,
+          duration: 1000,
           style: {
             color: '#163760',
           },
@@ -144,7 +135,7 @@ const Login = () => {
       
       <button className={styles.login_button}>Login</button> <br />
       <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link> <br />
-      <Link to={`/CreateAccount`} className={styles.create_account}>Create Account</Link>
+      <Link to={`/signup`} className={styles.create_account}>Create Account</Link>
     
       </form>
       <Toaster/>

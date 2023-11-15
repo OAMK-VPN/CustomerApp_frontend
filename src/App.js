@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useNavigate } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 
 import HomePage from './Pages/homepage/HomePage';
-import Login from './Pages/login/Login';
-import Signup, { SignUp } from './Pages/CreateAccount/SignUp';
+//import Login from './Pages/login/Login';
+//import SignUp from './Pages/CreateAccount/SignUp';
 import { AuthProvider } from './AuthContext';
 import RestorePassword from './Pages/RestorePassword/RestorePassword';
 import ParcelsView from './Pages/ParcelsAllViews/ParcelsView';
@@ -13,18 +15,40 @@ import FillUpRecieverInfo from './Pages/sendingParcel/FillUpRecieverInfo';
 import Parceldetails from './Pages/ParcelsAllViews/Parceldetails';
 import Usrsettings from './Pages/UserAccount/Usrsettings';
 import NotFound from './Pages/NotFound/NotFound';
+import Loadsk from './Loadsk';
+
+const Login = lazy(() => import('./Pages/login/Login'))
+const Signup = lazy(() => import('./Pages/CreateAccount/SignUp'))
 
 const App = () => {
-
+  const navigate = useNavigate();
   return (
     
       <div>
         <AuthProvider>
         <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<Signup />} />
-            <Route path="/CreateAccount" element={<SignUp />} />
+            
+            <Route path="/login" element={
+              <ErrorBoundary
+                FallbackComponent={<NotFound/>}
+                onReset={() => navigate('/')}>
+                <Suspense fallback = {<Loadsk/>}>
+                  <Login />
+                </Suspense>
+              </ErrorBoundary>} 
+            />
+            
+            <Route path="/signup" element={
+              <ErrorBoundary
+                FallbackComponent={<NotFound/>}
+                onReset={() => navigate('/')}>
+                <Suspense fallback = {<Loadsk/>}>
+                  <Signup />
+                </Suspense>
+              </ErrorBoundary>} 
+            />
+
             <Route path="/RestorePassword" element={<RestorePassword />} />
 
             <Route path="/parcels" element={<ParcelsView />} />

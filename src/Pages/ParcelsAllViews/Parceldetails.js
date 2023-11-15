@@ -1,32 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import axios from "axios";
 
 const ParcelDetails = () => {
   const { parcelID } = useParams();
   console.log(parcelID)
   const [parcel, setParcel] = useState(null);
   const [parcelDetails, setParcelDetails] = useState('');
-
+  const {user} = useAuth();
+  const parcel_details_point = `http://localhost:8080/parcels/${parcelID}`
 
   useEffect(() => {
     const fetchParcelDetails = async () => {
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:8080/parcels/${parcelID}`, {
-          method: 'GET',
+        const response = await axios.get(parcel_details_point, {
           headers: {
-            Authorization: `${token}`,
+            Authorization: user.token, // bearer
           },
         });
-
-        if (response.ok) {
-          const data = await response.json();
-          console.log(data);
-          setParcelDetails(data);
-        } else {
-          console.error('Failed to fetch parcel details:', response.statusText);
-        }
+        
+        setParcelDetails(response.data);
       } catch (error) {
         console.error('Error during fetch:', error);
       }
@@ -34,8 +28,6 @@ const ParcelDetails = () => {
 
     fetchParcelDetails();
   }, [parcelID]);
-
-
 
 
 

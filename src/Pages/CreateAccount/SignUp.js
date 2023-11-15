@@ -5,37 +5,37 @@ import { Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import new_account from "../../assets/new_account.svg"
 
-export const SignUp = (props) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const [postalCode, setPostalCode] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
+const SignUp = (props) => {
+
     const [valid, setValid] = useState(false);
     const navigate = useNavigate();
     const signup_point = process.env.REACT_APP_SIGNUP_API
 
+    const [form, setForm] = useState({
+      email: '',
+      name: '',
+      city: '',
+      address: '',
+      postalCode: '',
+      password: '',
+    })
 
-    const InputSanitazier_city = (e) => {
-      let sanitaziedInput = e.target.value.replace(/[^A-Za-z]/g, '');
-      setCity(sanitaziedInput);
-    }
-
-    const InputSanitazier_name = (e) => {
-      let sanitaziedInput = e.target.value.replace(/[^A-Za-z ]/g, '');
-      setName(sanitaziedInput);
+    const handleForm = (e) => {
+      setForm({
+        ...form,
+        [e.target.name]: e.target.value,
+      })
     }
 
     const checkPasswordlen = () => {
-      setValid(password.length >= 12);
+      setValid(form.password.length >= 12);
     }
 
 
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if (!email || !name || !city || !address || !postalCode || !password || !valid) {
+        if (!form.email || !form.name || !form.city || !form.address || !form.postalCode || !form.password || !valid) {
           toast.error("Please fill all the details", {
             duration: 1000,
             style: {
@@ -59,20 +59,19 @@ export const SignUp = (props) => {
             },
             body: JSON.stringify({
               username: usrnm,
-              email: email,
-              fullname: name,
-              city: city,
-              address: address,
-              zipcode: postalCode,
-              password: password,
+              email: form.email,
+              fullname: form.name,
+              city: form.city,
+              address: form.address,
+              zipcode: form.postalCode,
+              password: form.password,
             }),
           });
+          console.log(form,usrnm);
       
           if (response.ok) {
             alert(`Your username: ${usrnm}`);
-            navigate('/');
-          } else {
-            //alert(`This user already exists`);
+            return navigate('/');
           }
         } catch (error) {
           toast.error("Error", {
@@ -102,8 +101,8 @@ export const SignUp = (props) => {
               <input
                 className={styles.input_box}
                 id = "email"
-                value={email}
-                onChange={event => setEmail(event.target.value)}
+                onChange={handleForm}
+                value={form.email}
                 name="email"
                 type="email"
               />
@@ -116,8 +115,8 @@ export const SignUp = (props) => {
               <input
                 className={styles.input_box}
                 id = "name"
-                value={name}
-                onChange={InputSanitazier_name}
+                onChange={handleForm}
+                value={form.name}
                 name="name"
                 type="text"
               />
@@ -129,8 +128,8 @@ export const SignUp = (props) => {
               <input
                 className={styles.input_box}
                 id = "city"
-                value={city}
-                onChange={InputSanitazier_city}
+                onChange={handleForm}
+                value={form.city}
                 name="city"
                 type="text"
               />
@@ -142,8 +141,8 @@ export const SignUp = (props) => {
               <input
                 className={styles.input_box}
                 id = "address"
-                value={address}
-                onChange={event => setAddress(event.target.value)}
+                onChange={handleForm}
+                value={form.address}
                 name="address"
                 type="text"
               />
@@ -155,8 +154,8 @@ export const SignUp = (props) => {
               <input
                 className={styles.input_box}
                 id = "postalCode"
-                value={postalCode}
-                onChange={event => setPostalCode(event.target.value)}
+                onChange={handleForm}
+                value={form.postalCode}
                 name="postalCode"
                 type="number"
               />
@@ -168,13 +167,13 @@ export const SignUp = (props) => {
               <input
                 className={valid ? styles.input_box : styles.input_box_inv}
                 id = "password"
-                value={password}
-                onChange={event => {
-                  setPassword(event.target.value);
-                  checkPasswordlen();
-                }}
                 name="password"
                 type="password"
+                value={form.password}
+                onChange={e => {
+                  handleForm(e);
+                  checkPasswordlen();
+                }}
               />
             </div>
 

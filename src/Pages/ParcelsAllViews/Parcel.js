@@ -10,8 +10,8 @@ export default function Parcel({ parcelID, date, status }) {
 }
   return (
       <tr onClick = {parcelDetails} className = {styles.tableRow}>
-        <td className = {styles.tableC}>  {parcelID} </td> 
-        <td className = {styles.tableC}>  {date} </td> 
+        <td className = {styles.tableC}> {parcelID} </td> 
+        <td className = {styles.tableC}> {date} </td> 
         <td className = {styles.tableC}> {status} </td>
       </tr>
   );
