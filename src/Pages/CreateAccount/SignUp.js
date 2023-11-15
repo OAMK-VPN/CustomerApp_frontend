@@ -14,6 +14,7 @@ export const SignUp = (props) => {
     const [city, setCity] = useState('');
     const [valid, setValid] = useState(false);
     const navigate = useNavigate();
+    const signup_point = process.env.REACT_APP_SIGNUP_API
 
 
     const InputSanitazier_city = (e) => {
@@ -48,10 +49,10 @@ export const SignUp = (props) => {
         }
 
 
-        let usrnm = Math.random().toString(24).substring(2,12); // username gen
+        let usrnm = Math.random().toString(24).slice(2,12); // username gen
 
         try {
-          const response = await fetch('http://localhost:8080/api/users/signup', {
+          const response = await fetch(signup_point, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

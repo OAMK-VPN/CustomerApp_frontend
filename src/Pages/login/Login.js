@@ -12,6 +12,11 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [response, setResponse] = useState(null);
+  const login_point = process.env.REACT_APP_LOGIN_API;
+
+
+  
+
 
   
   const navigate = useNavigate();
@@ -54,13 +59,13 @@ const Login = () => {
   const loginHandler = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8080/api/users/signIn', { // http://localhost:8080/login
-        method: 'PUT',
+      const response = await fetch(login_point, { // http://localhost:8080/api/users/signIn
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          username: email,       // will be replaced with email
+          email,       // will be replaced with email username: email,
           password,
         }),
       });
@@ -68,12 +73,24 @@ const Login = () => {
 
 
       const responseData = await response.json();
-      if (!response.ok || !responseData.active) {
+      if (!response.ok ) { //|| !responseData.active
         throw new Error('') 
       }
         // if success
-        //login({username: responseData.username, token: responseData.token});
-        //navigate(`/${responseData.username}/ParcelsView`);
+        login({username: responseData.username, token: responseData.token});
+        toast.success("Success", {
+          duration: 750,
+          style: {
+            color: '#163760',
+          },
+          iconTheme: {
+            primary: '#163760',
+          }
+        });
+        setTimeout(() => {
+          navigate(`/parcels`);
+        }, 750)
+
 
       } catch (error) {
         toast.error("Authentication error", {

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import { useAuth } from "../../AuthContext";
 
 const ParcelDetails = () => {
-const { userName, parcelID } = useParams();
+  const { parcelID } = useParams();
   console.log(parcelID)
   const [parcel, setParcel] = useState(null);
   const [parcelDetails, setParcelDetails] = useState('');
@@ -52,7 +53,7 @@ const { userName, parcelID } = useParams();
         <li> Status {parcelDetails.status} </li>
       </ul>
 
-      <Link to={`/${userName}/ParcelsView`}>Back to parcels overview</Link>
+      <Link to={`/parcels`}>Back to parcels overview</Link>
     </div>
   );
 };

@@ -5,13 +5,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './Pages/homepage/HomePage';
 import Login from './Pages/login/Login';
 import Signup, { SignUp } from './Pages/CreateAccount/SignUp';
-
+import { AuthProvider } from './AuthContext';
 import RestorePassword from './Pages/RestorePassword/RestorePassword';
 import ParcelsView from './Pages/ParcelsAllViews/ParcelsView';
-import ParcelDetailsView from './Pages/ParcelsAllViews/ParcelDetailsView';
 import FillUpParcelSizes from './Pages/sendingParcel/FillUpParcelSizes';
 import FillUpRecieverInfo from './Pages/sendingParcel/FillUpRecieverInfo';
-import ParcelDetails from './Pages/ParcelsAllViews/Parceldetails';
+import Parceldetails from './Pages/ParcelsAllViews/Parceldetails';
 import Usrsettings from './Pages/UserAccount/Usrsettings';
 import NotFound from './Pages/NotFound/NotFound';
 
@@ -20,6 +19,7 @@ const App = () => {
   return (
     
       <div>
+        <AuthProvider>
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/login" element={<Login />} />
@@ -27,14 +27,14 @@ const App = () => {
             <Route path="/CreateAccount" element={<SignUp />} />
             <Route path="/RestorePassword" element={<RestorePassword />} />
 
-            <Route path="/:userName/ParcelsView" element={<ParcelsView />} />
-            <Route path="/:userName/Parcels/:parcelID"  element={<ParcelDetails />} />
-            <Route path='/:userName/FillUpParcelSizes' element={<FillUpParcelSizes />} />
-            <Route path='/:userName/FillUpRecieverInfo' element={<FillUpRecieverInfo />} /> 
+            <Route path="/parcels" element={<ParcelsView />} />
+            <Route path="/parcels/:parcelID"  element={<Parceldetails />} />
+            <Route path='/:username/FillUpParcelSizes' element={<FillUpParcelSizes />} />
+            <Route path='/:username/FillUpRecieverInfo' element={<FillUpRecieverInfo />} /> 
             <Route path="/settings" element={<Usrsettings />} /> {/* will be changed */}
             <Route path = '*' element = {<NotFound />} />
         </Routes>
-    
+        </AuthProvider>
       </div>
     
   );

@@ -54,11 +54,11 @@
 }
 
 .input_box:hover {
-  box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px 1.5px rgba(0, 0, 0, 0.1);
 }
 
 .input_box:focus {
-  box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+  box-shadow: 1px 1px 5px 1.5px rgba(0, 0, 0, 0.2);
 }
 
 .settings_label {

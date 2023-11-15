@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
   };
 
   useEffect(() => {
-    if (user && user.token) {
+    if (user) {
       localStorage.setItem('token', user.token);
     } else if (user == '') {
       localStorage.removeItem('token');

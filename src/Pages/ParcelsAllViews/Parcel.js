@@ -2,11 +2,11 @@ import React from "react";
 import styles from "./ParcelsView.module.css";
 import { useNavigate } from "react-router-dom";
 
-export default function Parcel({ parcelID, date, status,userName }) {
+export default function Parcel({ parcelID, date, status }) {
   const navigate = useNavigate();
   
   const parcelDetails = () => {
-  navigate(`/${userName}/parcels/${parcelID}`);
+  navigate(`/parcels/${parcelID}`);
 }
   return (
       <tr onClick = {parcelDetails} className = {styles.tableRow}>

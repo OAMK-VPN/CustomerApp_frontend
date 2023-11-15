@@ -9,10 +9,8 @@ import { useNavigate, Redirect } from 'react-router-dom';
 const ParcelsView = () => {
   const {user, logout} = useAuth();
   const [parcels, setParcels] = useState([]);
-
+  const parcels_all_point = process.env.REACT_APP_ALL_PARCELS_API;
   const navigate = useNavigate();
-  const userName = user.username;
-
   const handleLogout = () => {
     logout();
     return navigate('/');
@@ -22,7 +20,7 @@ const ParcelsView = () => {
   useEffect(() => {
     const fetchParcels = async () => {
       try {
-        const response = await fetch(`http://localhost:8080/parcels`, {
+        const response = await fetch(parcels_all_point, {
           method: 'GET',
           headers: {
             Authorization: `${user.token}`,
@@ -57,11 +55,11 @@ const ParcelsView = () => {
     <div>
           <h1>Posti</h1>
           <nav className= {styles.testnav}>
-            <Link to={`/${userName}/FillUpParcelSizes`}>Send</Link> <br/>
+            <Link to={`/FillUpParcelSizes`}>Send</Link> <br/>
             <Link to="/history">History  </Link> <br/>
             <Link to="/track">Track  </Link> <br/>
             <button onClick = {handleLogout}>Logout </button> <br/>
-            <Link to={`/${userName}/Settings`}> Settings  </Link> 
+            <Link to={`/Settings`}> Settings  </Link> 
           </nav>
 
           <div className={styles.divP}>
