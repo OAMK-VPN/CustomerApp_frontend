@@ -5,12 +5,15 @@ import Parcel from "./Parcel";
 import ParcelDetails from "./Parceldetails";
 import { useAuth } from "../../AuthContext";
 import { useNavigate } from 'react-router-dom';
-import axios from "axios";
+import logo from "../../assets/test_logo.svg"
+
+import api from "../../Instance";
+
 
 const ParcelsView = () => {
   const {user, logout} = useAuth();
   const [parcels, setParcels] = useState([]);
-  const parcels_all_point = process.env.REACT_APP_ALL_PARCELS_API;
+  const parcels_all_point = '/parcels'
   const navigate = useNavigate();
   const handleLogout = () => {
     logout();
@@ -21,15 +24,11 @@ const ParcelsView = () => {
   useEffect(() => {
     const fetchParcels = async () => {
       try {
-        const response = await axios.get(parcels_all_point, {
-          headers: {
-            Authorization: `${user.token}`,
-          },
-        });
-
-          setParcels(response.data.userParcels);
+        const response = await api.get(parcels_all_point);
+      setParcels(response.data.userParcels);
       } catch (error) {
         console.error('Error during fetch:', error);
+        console.log('test');
         navigate('/login')
       }
     };
@@ -43,20 +42,30 @@ const ParcelsView = () => {
 
 
 
-
-
      
   return (
     <div>
-          <h1>Posti</h1>
+          <img 
+              src = {logo}
+              style={{ width: '8%', height: 'auto', maxWidth: '45px', padding: '1.5vh'}}
+          />
           <nav className= {styles.testnav}>
-            <Link to={`/FillUpParcelSizes`}>Send</Link> <br/>
-            <Link to="/history">History  </Link> <br/>
-            <Link to="/track">Track  </Link> <br/>
-            <button onClick = {handleLogout}>Logout </button> <br/>
-            <Link to={`/Settings`}> Settings  </Link> 
+            <Link to={`/send`}  className = {styles.myparcels_link}> Send parcel </Link> 
+            <details className = {styles.myparcels_dropdown}>
+              <summary>
+                <Link to="/parcels"  className = {styles.myparcels_link} >Parcels </Link>
+              </summary>
+              <div className = {styles.myparcels_dropdown_ch}>
+              <Link to="/parcels" className = {styles.myparcels_link}>All  </Link><br/>
+              <Link to="/parcels" className = {styles.myparcels_link}>Sent  </Link><br/>
+              <Link to="/parcels" className = {styles.myparcels_link}>Received  </Link>
+              </div>
+            </details>
+            <Link to="/track" className = {styles.myparcels_link}> Track  </Link>
+            {/*<button onClick = {handleLogout}>Logout </button> */}
+            <Link to={`/`}  className = {styles.myparcels_link}> Logout  </Link> 
+            <Link to={`/Settings`}  className = {styles.myparcels_link}> Settings  </Link> 
           </nav>
-
           <div className={styles.divP}>
           <div className = {styles.divpTable}>
             <table className = {styles.pTable}>

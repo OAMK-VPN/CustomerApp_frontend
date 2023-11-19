@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
+import logo from "../../assets/test_logo.svg"
 import axios from "axios";
-
+import styles from "./Parceldetails.module.css";
 const ParcelDetails = () => {
   const { parcelID } = useParams();
-  console.log(parcelID)
-  const [parcel, setParcel] = useState(null);
   const [parcelDetails, setParcelDetails] = useState('');
   const {user} = useAuth();
   const parcel_details_point = `http://localhost:8080/parcels/${parcelID}`
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchParcelDetails = async () => {
       try {
@@ -27,25 +26,46 @@ const ParcelDetails = () => {
     };
 
     fetchParcelDetails();
-  }, [parcelID]);
+  }, [parcelID, parcel_details_point, user.token]);
 
 
 
   
   return (
-    <div>
-      <h2> Parcel Details </h2>
-      <ul>
-        <li> Id {parcelDetails.id} </li>
-        <li>  Date {parcelDetails.date} </li>
-        <li> Parcel name {parcelDetails.parcelName} </li>
-        <li> Sender {parcelDetails.senderId} </li>
-        <li> Receiver {parcelDetails.receiverId} </li>
-        <li> Pickup {parcelDetails.pickupLocation} </li>
-        <li> Status {parcelDetails.status} </li>
-      </ul>
-
-      <Link to={`/parcels`}>Back to parcels overview</Link>
+    <div>    
+    <Link to = '/'>
+      <img 
+        src = {logo}
+        style={{ width: '8%', height: 'auto', maxWidth: '45px', padding: '1.5vh'}}
+      />
+    </Link>  
+    
+    <div className={styles.parent_div}>
+    <div className = {styles.parcel_details_container}>
+      <div className = {styles.back_div}>
+        <button onClick={() => {navigate('/parcels')}} className={styles.back_button}>
+          {'<'}
+        </button>
+      </div>
+      <div className = {styles.details}>
+        <ul>
+          <li> <b>Id:</b> {parcelDetails.id} </li>
+          <li> <b>Sender:</b> {parcelDetails.senderId} </li>
+          <li> <b>Receiver:</b> {parcelDetails.receiverId} </li>
+          <li> <b>Sent from: </b> {parcelDetails.location} </li>
+          <li> <b>Pickup: </b> Test location 2 </li>
+        </ul>
+        
+        <ul>
+          <li> <b>Status:</b> {parcelDetails.status} </li>
+          <li> <b>Ready to pickup:</b> 17.10.23 16:00 </li>
+          <li> <b>Picked up:</b> 18.10.23 17:32 </li>
+          <li> <b>Code:</b> 0200 </li>
+          <li> <b>Cabinet number:</b> 10 </li>
+        </ul>
+      </div>
+    </div>
+    </div>
     </div>
   );
 };

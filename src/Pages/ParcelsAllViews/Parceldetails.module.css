@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Nunito:wght@300;400;500;600;700;800;900;1000&family=Raleway:wght@600;700;800;900&display=swap');
+
+
+.parent_div {
+    height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.parcel_details_container {
+    width: clamp(300px, 60%, 800px);
+    border: 1px solid #cccccc;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 1px 1px 8px 0.5px rgba(0, 0, 0, 0.2);
+  }
+  
+.back_div {
+    margin-bottom: 2%;
+}
+  
+.back_button {
+  background-color: #163760;
+  color: #ffffff;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 1000;
+  border: 2px solid #163760;
+  margin-left: 5px;
+  padding: 5px 2%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.back_button:hover {
+  background-color: #ffffff;
+  color: #163760;
+}
+
+.back_button:active {
+  background-color: #ffffff;
+  color: #163760;
+}
+  
+.details {
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+  
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+  
+li {
+  margin: 5px;
+}
+  
+
+  
