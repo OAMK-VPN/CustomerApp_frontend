@@ -5,6 +5,7 @@ import axios from "axios";
 import api from "../../Instance";
 import { useAuth } from "../../AuthContext";
 import { useState, useEffect } from "react";
+import InputF from './Sending_input'
 
 const Usrsettings = () => {
     const {user} = useAuth();
@@ -71,7 +72,7 @@ const Usrsettings = () => {
         };
     
         fetchSettings();
-      }, []);
+      }, [user.token]);
 
 
 
@@ -88,98 +89,76 @@ const Usrsettings = () => {
           </div>
 
         <div className={styles.input_container}>
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Your name</label>
-                <input 
-                className = {styles.input_box} 
-                disabled = {true} 
-                value = {settings.name} 
-                name = "name" 
-                type="text" 
-                />
-            </div>
-            
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Recipient's name</label>
-                <input 
-                className = {styles.input_box}   
-                name = "name" 
-                placeholder=""
-                type="text" 
-                />
-            </div>    
+          <InputF 
+            label = "Your name"
+            disabled = {true}
+            value = {settings.name}
+            name = "name"
+            type = "text"
+          />
+          <InputF 
+            label = "Recipient's name"
+            placeholder=""
+            name = "name"
+            type = "text"
+          /> 
         </div>
 
 
 
         <div className={styles.input_container}>
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Your email </label>
-                <input 
-                className = {styles.input_box} 
-                disabled = {true}
-                value = {settings.email} 
-                name = "email" 
-                type="email" 
-                />
-            </div>
-            
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Recipient's email</label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}
-                placeholder=""  
-                type="text" 
-                />
-            </div>    
-        </div>
-
-        <div className={styles.input_container}>
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Your address </label>
-                <input 
-                className = {styles.input_box} 
-                disabled = {true}
-                value = {settings.address} 
-                name = "address" 
-                type="text" 
-                />
-            </div>
-            
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Recipient's address</label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}  
-                placeholder=""
-                type="text" 
-                />
-            </div>    
+            <InputF 
+              label = "Your email"
+              disabled = {true}
+              value = {settings.email}
+              name = "sender_email"
+              type = "email"
+            />
+            <InputF 
+              label = "Recipient's email"
+              onChange = {handleSettingsUpdate}
+              placeholder=""
+              name = ""
+              type = "email"
+            />
         </div>
 
 
         <div className={styles.input_container}>
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Your zip </label>
-                <input 
-                className = {styles.input_box} 
-                disabled = {true}
-                value = {settings.postalCode} 
-                name = "address" 
-                type="number"
-                />
-            </div>
+            <InputF 
+              label = "Your address"
+              disabled = {true}
+              value = {settings.address} 
+              name = "sender_address"
+              type = "text"
+            />    
             
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>Recipient's zip</label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}  
-                placeholder=""
-                type="number" 
-                />
-            </div>    
+            <InputF 
+              label = "Recipient's address"
+              onChange = {handleSettingsUpdate}
+              placeholder=""
+              name = ""
+              type = "text"
+            />
+        </div>
+
+
+        <div className={styles.input_container}>
+            <InputF 
+              label = "Your zip"
+              disabled = {true}
+              value = {settings.postalCode}
+              name = "address"
+              type = "number"
+            />
+
+            <InputF 
+              label = "Recipient's zip"
+              onChange = {handleSettingsUpdate} 
+              placeholder=""
+              name=""
+              type="number" 
+            />
         </div>
 
         <div className= {styles.input_container}>
@@ -187,51 +166,43 @@ const Usrsettings = () => {
           </div>
 
         <div className={styles.input_container}>
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>weight (kg) </label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}  
-                placeholder=""  
-                type="email" 
-                />
-            </div>
-            
-            <div className={styles.input_child_container}>
-                <label  className = {styles.inp_label}>height (cm)</label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate} 
-                placeholder=""   
-                type="number" 
-                />
-            </div>    
+            <InputF 
+              label = "weight (kg)"
+              onChange = {handleSettingsUpdate} 
+              placeholder = ""
+              name = "parcel_weight"
+              type = "number" 
+            />
+
+            <InputF 
+              label = "height (cm)"
+              onChange = {handleSettingsUpdate} 
+              placeholder = ""
+              name = "parcel_height"
+              type = "number" 
+            /> 
         </div>
 
         <div className={styles.input_container}>
-            <div className={styles.input_child_container}>
-                <label className = {styles.inp_label}>length (cm) </label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}  
-                placeholder=""  
-                type="number" 
-                />
-            </div>
+            <InputF 
+              label = "length (cm)"
+              onChange = {handleSettingsUpdate} 
+              placeholder = ""
+              name = "parcel_length"
+              type = "number" 
+            /> 
             
-            <div className={styles.input_child_container}>
-                <label  className = {styles.inp_label}>width (cm)</label>
-                <input 
-                className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}  
-                placeholder=""  
-                type="number" 
-                />
-            </div>    
+            <InputF 
+              label = "width (cm)"
+              onChange = {handleSettingsUpdate} 
+              placeholder = ""
+              name = "parcel_width"
+              type = "number" 
+            />  
         </div>
 
         
-        <div className={styles.input_container}>
+        <div className={styles.select_container}>
             <div className={styles.select_child_container}>
                 <label  className = {styles.inp_label}>Drop off location</label>
                 <select 
@@ -243,7 +214,8 @@ const Usrsettings = () => {
                 </option>
                 ))}
                 </select>
-                <label  className = {styles.inp_label}>Drop off location</label>
+            <div className={styles.select_child_container}>
+                <label  className = {styles.inp_label}>Pickup location</label>
                 <select 
                 className = {styles.select_box} 
                 >
@@ -253,6 +225,7 @@ const Usrsettings = () => {
                 </option>
                 ))}
                 </select>
+            </div>
             </div>    
             
         </div>
@@ -261,7 +234,6 @@ const Usrsettings = () => {
 
         <div className={styles.input_container}>
             <div className={styles.input_child_container}>
-
             <button className = {styles.buttn}>Send a parcel</button>
             </div>    
         </div>
