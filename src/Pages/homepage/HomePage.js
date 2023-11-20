@@ -25,7 +25,7 @@ const HomePage = () => {
           />
           <Link to = "login" className= {styles.loginLink}> Login </Link>
         </div>
-  
+
         <div class = {styles.parent_mainText}>
           <div class = {styles.mainText}>
             <p><span class = {styles.trackWord}>Track</span></p>

@@ -1,64 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Caveat&family=Nunito:wght@300;400;500;600;700;800;900;1000&family=Raleway:wght@600;700;800;900&display=swap');
-@keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-25px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-
 .pdiv {
     display: flex; 
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 80vh;
-    animation: fadeIn 0.75s ease-out;
- 
+    height: 100vh; 
 }
 
-
-.button_back {
-    background-color: #163760;
-    color: white; 
-    border: 0.5px solid transparent;
-    transition: border-color 0.5s;  
-    border-radius: 5px; 
-    cursor: pointer; 
-    width: 10%;
-    padding: 8px;
-    height: auto;
-    font-family: 'Nunito', sans-serif;
-    font-weight: 1000;
-
-
-  
-}
-
-.button_back:hover {
-  background-color: #ffffff;
+.p1 {
+  font-size: clamp(35px, 5vw, 70px);
   color: #163760;
-  border-color: #163760;
-  box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+  margin: 0;
 }
 
-.notfound {
-    width: 30%;
-}
-
-
-
-@media (max-width: 1000px) {
-    .notfound {
-        width: 60%;
-    }
-    .button_back {
-        width: 35%;
-        padding: 5px;
-        font-size: 0.8rem;
-    }
+.p2 {
+  font-size: clamp(10px,5vw,16px);
+  color: #163760;
+  margin: 0px;
 }

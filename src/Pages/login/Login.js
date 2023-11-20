@@ -111,8 +111,8 @@ const Login = () => {
       <div>
         <label className={styles.label} htmlFor="email">Email</label><br/>
         <input
-
           className={styles.login_input}
+          autoFocus
           id = "email"
           value={email}
           onChange={event => setEmail(event.target.value)}

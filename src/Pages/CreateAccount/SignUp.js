@@ -93,6 +93,7 @@ const SignUp = (props) => {
 
             {/* Email */}
             <InputField
+              autoFocus
               label = "Email"
               id = "email"
               onChange={handleForm}
