@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import styles from "./SignUp.module.css";
 import new_account from "../../assets/new_account.svg"
-
+import InputField from "./SignUp_input";
 const SignUp = (props) => {
 
     const [valid, setValid] = useState(false);
@@ -20,6 +20,17 @@ const SignUp = (props) => {
       password: '',
     })
 
+    const resetForm = () => {
+      setForm({
+        email: '',
+        name: '',
+        city: '',
+        address: '',
+        postalCode: '',
+        password: '',
+      })
+    }
+
     const handleForm = (e) => {
       setForm({
         ...form,
@@ -27,28 +38,9 @@ const SignUp = (props) => {
       })
     }
 
-    const checkPasswordlen = () => {
-      setValid(form.password.length >= 12);
-    }
-
-
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        if (!form.email || !form.name || !form.city || !form.address || !form.postalCode || !form.password || !valid) {
-          toast.error("Please fill all the details", {
-            duration: 1000,
-            style: {
-              color: '#163760',
-            },
-            iconTheme: {
-              primary: '#163760',
-            }
-          });
-          return 
-        }
-
-
         let usrnm = Math.random().toString(24).slice(2,12); // username gen
 
         try {
@@ -72,6 +64,10 @@ const SignUp = (props) => {
           if (response.ok) {
             alert(`Your username: ${usrnm}`);
             return navigate('/');
+          } 
+          else {
+            resetForm();
+            throw new Error();
           }
         } catch (error) {
           toast.error("Error", {
@@ -91,93 +87,85 @@ const SignUp = (props) => {
           <form className={styles.form} onSubmit={submitHandler}>
             <img 
               src = {new_account}
-              style={{ width: '25%', height: 'auto', paddingTop: "8%", paddingBottom: "8%"}}
+              style={{ width: '20%', height: 'auto', paddingTop: "8%", paddingBottom: "8%"}}
               alt = 'Create an account'
             />
 
             {/* Email */}
-            <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="email">Email</label><br/>
-              <input
-                className={styles.input_box}
-                id = "email"
-                onChange={handleForm}
-                value={form.email}
-                name="email"
-                type="email"
-              />
-            </div>
+            <InputField
+              label = "Email"
+              id = "email"
+              onChange={handleForm}
+              value={form.email}
+              name="email"
+              type="email"
+              required
+            />
 
 
             {/* Full name */}
-            <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="name">Full name</label><br/>
-              <input
-                className={styles.input_box}
-                id = "name"
-                onChange={handleForm}
-                value={form.name}
-                name="name"
-                type="text"
-              />
-            </div>
+            <InputField
+              label = "Full name"
+              id = "name"
+              onChange={handleForm}
+              value={form.name}
+              name="name"
+              type="text"
+              pattern="^[a-zA-Z]+(\s[a-zA-Z]+)+$"
+              required
+            />
+            
 
             {/* City */}
-            <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="City">City</label><br/>
-              <input
-                className={styles.input_box}
-                id = "city"
-                onChange={handleForm}
-                value={form.city}
-                name="city"
-                type="text"
-              />
-            </div>
+            <InputField
+              label = "City"
+              id = "city"
+              onChange={handleForm}
+              value={form.city}
+              name="city"
+              type="text"
+              pattern="[A-Za-z]+"
+              required
+            />
+
 
             {/* Address */}
-            <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="Address">Address</label><br/>
-              <input
-                className={styles.input_box}
-                id = "address"
-                onChange={handleForm}
-                value={form.address}
-                name="address"
-                type="text"
-              />
-            </div>
+            <InputField
+              label = "Address"
+              id = "address"
+              onChange={handleForm}
+              value={form.address}
+              name="address"
+              type="text"
+              required
+            />
 
             {/* Postal code */}
-            <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="postalCode">Postal Code</label><br/>
-              <input
-                className={styles.input_box}
-                id = "postalCode"
-                onChange={handleForm}
-                value={form.postalCode}
-                name="postalCode"
-                type="number"
-              />
-            </div>
+            <InputField
+              label = "Postal code"
+              id = "postalCode"
+              onChange={handleForm}
+              value={form.postalCode}
+              name="postalCode"
+              type="text"
+              pattern="\d{5}"
+              required
+            />
 
             {/* Password */}
-            <div className= {styles.input_boxp}>
-              <label className={styles.label} htmlFor="password">Password {'(>12 )'}</label><br/>
-              <input
-                className={valid ? styles.input_box : styles.input_box_inv}
-                id = "password"
-                name="password"
-                type="password"
-                value={form.password}
-                onChange={e => {
-                  handleForm(e);
-                  checkPasswordlen();
-                }}
-              />
-            </div>
+            <InputField
+              label = "Password (>10) "
+              id = "password"
+              onChange={handleForm}
+              value={form.password}
+              name="password"
+              type="password"
+              pattern="^(?=.*\d).{10,}$"
+              title="password must contain at least 1 number"
+              required
+            />
 
-        <button className={styles.create_button} onClick={submitHandler}>Create</button>
+        <button className={styles.create_button} type="submit">Create</button>
         <Link to={`/login`} className={styles.account_already}>Already have an account?</Link>
         </form>
         <Toaster />

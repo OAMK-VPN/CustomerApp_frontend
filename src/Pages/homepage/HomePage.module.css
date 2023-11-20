@@ -126,13 +126,13 @@ input {
   border-radius: 5px;
   padding: 1.05vh;
   cursor: pointer;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
+  box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2);
+
 }
 
 
 .bottom_button:hover {
-  box-shadow: 1px 1px 10px 2px rgba(0, 0, 0, 0.3);
+  background-color:rgb(226, 223, 223);
   color:#255ba2;
     
 }

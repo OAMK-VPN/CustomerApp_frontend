@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat&family=Nunito:wght@300;400;500;600;700;800;900;1000&display=swap');
 
+:root {
+  --border_valid: #3681de;
+  --border_focus: #82baff;
+}
+
+
 .parent_form {
   display: flex;
   justify-content: center;
@@ -10,7 +16,7 @@
 
 .form {
     background-color:#ffffff;
-    height: 75vh;
+    height: 80vh;
     width: 35vh;
     display: flex;
     flex-direction: column;
@@ -32,12 +38,16 @@
   margin-bottom: 5%;
 }
 
-.input_box_inv {
-  width: 95%;
-  height: 10%;
-  margin-bottom: 5%;
-  border: 2px dashed #cccccc;
-  outline: none;
+.input_box:focus {
+  outline: 1px solid var(--border_focus);
+}
+
+.input_box:valid {
+  border: 1px solid var(--border_valid);
+}
+
+.input_box:valid:focus {
+  outline: 1px solid var(--border_valid);
 }
 
 
@@ -74,7 +84,7 @@
   .account_already {
     font-size: 0.8rem;
   }
-  .label {
+  .labels {
     font-size: 0.8rem;
   }
 }

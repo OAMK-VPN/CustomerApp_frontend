@@ -80,6 +80,7 @@ const Usrsettings = () => {
 
     return (
         <div className = {styles.parent_container}>
+          <form>
           <div className = {styles.footer}>
             <Link to = '/parcels' className={styles.getbackLink}>Get back</Link>
           </div>
@@ -98,9 +99,11 @@ const Usrsettings = () => {
           />
           <InputF 
             label = "Recipient's name"
-            placeholder=""
+            
             name = "name"
             type = "text"
+            pattern="^[a-zA-Z]+(\s[a-zA-Z]+)+$"
+            required
           /> 
         </div>
 
@@ -117,9 +120,9 @@ const Usrsettings = () => {
             <InputF 
               label = "Recipient's email"
               onChange = {handleSettingsUpdate}
-              placeholder=""
               name = ""
               type = "email"
+              required
             />
         </div>
 
@@ -136,9 +139,10 @@ const Usrsettings = () => {
             <InputF 
               label = "Recipient's address"
               onChange = {handleSettingsUpdate}
-              placeholder=""
+              
               name = ""
               type = "text"
+              required
             />
         </div>
 
@@ -155,9 +159,11 @@ const Usrsettings = () => {
             <InputF 
               label = "Recipient's zip"
               onChange = {handleSettingsUpdate} 
-              placeholder=""
+              
               name=""
-              type="number" 
+              type="text" 
+              pattern="\d{5}"
+              required
             />
         </div>
 
@@ -169,17 +175,17 @@ const Usrsettings = () => {
             <InputF 
               label = "weight (kg)"
               onChange = {handleSettingsUpdate} 
-              placeholder = ""
               name = "parcel_weight"
-              type = "number" 
+              type = "number"
+              required 
             />
 
             <InputF 
               label = "height (cm)"
               onChange = {handleSettingsUpdate} 
-              placeholder = ""
               name = "parcel_height"
               type = "number" 
+              required
             /> 
         </div>
 
@@ -187,17 +193,17 @@ const Usrsettings = () => {
             <InputF 
               label = "length (cm)"
               onChange = {handleSettingsUpdate} 
-              placeholder = ""
               name = "parcel_length"
               type = "number" 
+              required
             /> 
             
             <InputF 
               label = "width (cm)"
               onChange = {handleSettingsUpdate} 
-              placeholder = ""
               name = "parcel_width"
               type = "number" 
+              required
             />  
         </div>
 
@@ -237,6 +243,7 @@ const Usrsettings = () => {
             <button className = {styles.buttn}>Send a parcel</button>
             </div>    
         </div>
+        </form>
         </div> 
         
         )}

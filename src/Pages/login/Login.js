@@ -14,11 +14,11 @@ const Login = () => {
 
   
   const navigate = useNavigate();
-  const UserInputHandler = (e) => {
-    const sanitaziedInput = e.target.value.replace(/[^A-Za-z0-9@.]/g, '');
-    setEmail(sanitaziedInput);
-  }
   const { user, login } = useAuth();
+  const resetForm = () => {
+    setEmail('');
+    setPassword('');
+  }
 
 
   // already logged in
@@ -68,7 +68,6 @@ const Login = () => {
       });
 
         login({username: response.data.username, token: response.data.token});
-        console.log("good");
         toast.success("Success", {
           duration: 750,
           style: {
@@ -84,6 +83,7 @@ const Login = () => {
 
 
       } catch (error) {
+        resetForm();
         toast.error("Authentication error", {
           duration: 1000,
           style: {
@@ -115,9 +115,10 @@ const Login = () => {
           className={styles.login_input}
           id = "email"
           value={email}
-          onChange={UserInputHandler}
+          onChange={event => setEmail(event.target.value)}
           name="email"
-          type="text"
+          type="email"
+          required
           />
       </div>
 
@@ -130,10 +131,11 @@ const Login = () => {
           onChange={event => setPassword(event.target.value)}
           name="password"
           type="password"
+          required
         />
       </div>
       
-      <button className={styles.login_button}>Login</button> <br />
+      <button className={styles.login_button} type="submit">Login</button> <br />
       <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link> <br />
       <Link to={`/signup`} className={styles.create_account}>Create Account</Link>
     
