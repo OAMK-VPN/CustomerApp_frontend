@@ -13,6 +13,7 @@ import Usrsettings from './Pages/UserAccount/Usrsettings';
 import NotFound from './Pages/NotFound/NotFound';
 import ParcelSending from './Pages/sendingParcel/ParcelSending'
 import Loadsk from './Loadsk';
+import Tracking from './Pages/Track/Track';
 
 const Login = lazy(() => import('./Pages/login/Login'))
 const Signup = lazy(() => import('./Pages/CreateAccount/SignUp'))
@@ -49,6 +50,7 @@ const App = () => {
             <Route path="/RestorePassword" element={<RestorePassword />} />
 
             <Route path="/parcels" element={<ParcelsView />} />
+            <Route path="/track" element={<Tracking />} />
             <Route path="/parcels/:parcelID"  element={<Parceldetails />} />
             <Route path="/settings" element={<Usrsettings />} /> {/* will be changed */}
             <Route path = '/send' element = {<ParcelSending />} />

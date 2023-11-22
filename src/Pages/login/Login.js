@@ -7,10 +7,23 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import login_lock from "../../assets/login_lock.svg"
 import { useAuth } from "../../AuthContext";
+import { debounce } from "lodash";
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const login_point = process.env.REACT_APP_LOGIN_API;
+  const notification_toast = (type, message, interval) =>
+  toast[type](
+    message, 
+  { duration: interval,
+    style: { color: '#163760', },
+    iconTheme: { primary: '#163760', }
+  });
+
+  const [loginForm, setLoginForm] = useState({
+    email: '',
+    password: '',
+  })
 
   
   const navigate = useNavigate();
@@ -21,44 +34,15 @@ const Login = () => {
   }
 
 
-  // already logged in
-  {/* useEffect(() => {
-    const validateToken = async () => {
-      try {
-        if (localStorage.getItem("token") !== null) {
-          const response = await fetch(`http://localhost:8080/validate-token`, {
-            method: "GET",
-            headers: {
-              Authorization: `${user.token}`,
-            },
-          });
-          console.log("good")
-          if (response.ok) {
-            const responseData = await response.json();
-            login({ username: responseData.username, token: responseData.token });
-            navigate(`/${responseData.username}/ParcelsView`);
-          } else {
-          }
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    };
 
-    validateToken();
-  }, [user.token, navigate, login]); */}
-
-
-  // yet to login
-  // http://localhost:8080/api/users/signIn
-  // useEffect?? (probably not)
   const loginHandler = async (e) => {
     e.preventDefault();
+    console.log(loginForm);
     try {
       const response = await axios.post( login_point, 
       { 
-        email: email,       // will be replaced with email username: email,
-        password: password,
+        email: loginForm.email,       // will be replaced with email username: email,
+        password: loginForm.password,
       }, 
       {
         headers: 
@@ -68,35 +52,25 @@ const Login = () => {
       });
 
         login({username: response.data.username, token: response.data.token});
-        toast.success("Success", {
-          duration: 750,
-          style: {
-            color: '#163760',
-          },
-          iconTheme: {
-            primary: '#163760',
-          }
-        });
+        notification_toast('success', 'Success', 750);
         setTimeout(() => {
           navigate(`/parcels`);
         }, 750)
 
 
       } catch (error) {
-        resetForm();
-        toast.error("Authentication error", {
-          duration: 1000,
-          style: {
-            color: '#163760',
-          },
-          iconTheme: {
-            primary: '#163760',
-          }
-        });
+        notification_toast('error', 'Authentication error', 750);
       }
   };
 
 
+  const handleChange = debounce((e) => {
+    console.log(loginForm);
+    setLoginForm({
+      ...loginForm,
+      [e.target.name]: e.target.value,
+    })
+  }, 300)
 
 
 
@@ -114,8 +88,7 @@ const Login = () => {
           className={styles.login_input}
           autoFocus
           id = "email"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
+          onChange={handleChange}
           name="email"
           type="email"
           required
@@ -127,8 +100,7 @@ const Login = () => {
         <input
           className={styles.login_input}
           id = "password"
-          value={password}
-          onChange={event => setPassword(event.target.value)}
+          onChange={handleChange}
           name="password"
           type="password"
           required

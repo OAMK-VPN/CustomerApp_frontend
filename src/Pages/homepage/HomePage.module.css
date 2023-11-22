@@ -93,6 +93,7 @@
   color: #163760;
   border-color: #163760;
   box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+  cursor: crosshair;
 }
 
 .searchinput {
@@ -104,6 +105,7 @@
 
 .searchinput:hover {
   box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+  cursor: crosshair;
 }
 
 

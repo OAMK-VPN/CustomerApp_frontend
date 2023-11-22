@@ -5,6 +5,7 @@ import axios from "axios";
 import api from "../../Instance";
 import { useAuth } from "../../AuthContext";
 import { useState, useEffect } from "react";
+import Getback from "../../modules/Getback";
 
 
 const Usrsettings = () => {
@@ -81,9 +82,7 @@ const Usrsettings = () => {
 
     return (
         <div className = {styles.parent_container}>
-          <div className = {styles.footer}>
-            <Link to = '/parcels' className={styles.getbackLink}>Get back</Link>
-          </div>
+            <Getback/>
         <div className={styles.input_container}>
             <div className={styles.input_child_container}>
                 <label>Email</label>

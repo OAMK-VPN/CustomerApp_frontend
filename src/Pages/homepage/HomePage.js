@@ -13,8 +13,13 @@ const HomePage = () => {
   }
 
   const handleMyPost = () => {
-    navigate('login'); // simple way, can be rewritten with the same logic as in login.js
+    navigate('login');
   }
+
+  const handleTracking = () => {
+    navigate('track');
+  }
+
 
   return (
       <div className = {styles.parent_container}>
@@ -35,7 +40,7 @@ const HomePage = () => {
 
 
           <div className = {styles.searchBox}>
-            <input type="text" placeholder="Parcel id" className = {styles.searchinput}/>
+            <input type="text" placeholder="Parcel id" className = {styles.searchinput} onClick={handleTracking}/>
             <button>Find</button>
           </div>
         </div>

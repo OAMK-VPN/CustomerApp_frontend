@@ -49,6 +49,8 @@ const ParcelsView = () => {
               src = {logo}
               style={{ width: '8%', height: 'auto', maxWidth: '45px', padding: '1.5vh'}}
           />
+          
+          
           <nav className= {styles.testnav}>
             <Link to={`/send`}  className = {styles.myparcels_link}> Send parcel </Link> 
             <details className = {styles.myparcels_dropdown}>
@@ -66,6 +68,8 @@ const ParcelsView = () => {
             <Link to={`/`}  className = {styles.myparcels_link}> Logout  </Link> 
             <Link to={`/Settings`}  className = {styles.myparcels_link}> Settings  </Link> 
           </nav>
+          
+
           <div className={styles.divP}>
           <div className = {styles.divpTable}>
             <table className = {styles.pTable}>

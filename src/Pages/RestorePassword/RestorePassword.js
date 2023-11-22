@@ -5,11 +5,18 @@ import toast, { Toaster } from 'react-hot-toast';
 import restore_psw from "../../assets/restore_psw.svg"
 import axios from "axios";
 import api from "../../Instance";
+import { debounce } from "lodash";
 
 export default function Login() {
   const [email, setEmail] = useState('');
   const navigate = useNavigate();
-
+  const notification_toast = (type, message, interval) =>
+  toast[type](
+    message, 
+  { duration: interval,
+    style: { color: '#163760', },
+    iconTheme: { primary: '#163760', }
+  });
 
 
 
@@ -21,21 +28,16 @@ export default function Login() {
       await axios.put(`http://localhost:8080/api/users/forgotPassword/${enc_email}`)
     } catch (error) { }
 
-    toast.success("A new password has been sent to your email", {
-      duration: 1200,
-      style: {
-        color: '#163760',
-      },
-      iconTheme: {
-        primary: '#163760',
-      }
-    });
-
+    notification_toast("success", "A new password has been sent to your email", 1200)
     setTimeout(() => {
       navigate('/login')
     }, 1500);
   }
 
+  const handleChange = debounce((e) => {
+    console.log(1);
+    setEmail(e.target.value);
+  }, 250)
   
 
   return (
@@ -51,8 +53,7 @@ export default function Login() {
         <input
           className={styles.input_box}
           id = "email"
-          value={email}
-          onChange={event => setEmail(event.target.value)}
+          onChange={handleChange}
           name="email"
           type="email"
           required

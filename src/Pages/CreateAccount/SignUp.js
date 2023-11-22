@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
+import { debounce } from "lodash";
+
+
 import styles from "./SignUp.module.css";
 import new_account from "../../assets/new_account.svg"
 import InputField from "./SignUp_input";
@@ -10,6 +13,14 @@ const SignUp = (props) => {
     const [valid, setValid] = useState(false);
     const navigate = useNavigate();
     const signup_point = process.env.REACT_APP_SIGNUP_API
+    
+    const notification_toast = (type, message, interval) =>
+    toast[type](
+      message, 
+    { duration: interval,
+      style: { color: '#163760', },
+      iconTheme: { primary: '#163760', }
+    });
 
     const [form, setForm] = useState({
       email: '',
@@ -20,23 +31,15 @@ const SignUp = (props) => {
       password: '',
     })
 
-    const resetForm = () => {
-      setForm({
-        email: '',
-        name: '',
-        city: '',
-        address: '',
-        postalCode: '',
-        password: '',
-      })
-    }
 
-    const handleForm = (e) => {
+
+    const handleForm = debounce((e) => {
+      console.log(form)
       setForm({
         ...form,
         [e.target.name]: e.target.value,
       })
-    }
+    }, 300)
 
 
     const submitHandler = async (e) => {
@@ -66,19 +69,10 @@ const SignUp = (props) => {
             return navigate('/');
           } 
           else {
-            resetForm();
             throw new Error();
           }
         } catch (error) {
-          toast.error("Error", {
-            duration: 1000,
-            style: {
-              color: '#163760',
-            },
-            iconTheme: {
-              primary: '#163760',
-            }
-          });
+          notification_toast("error", "Error", 1000);
         }
       };
 
@@ -97,7 +91,6 @@ const SignUp = (props) => {
               label = "Email"
               id = "email"
               onChange={handleForm}
-              value={form.email}
               name="email"
               type="email"
               required
@@ -109,7 +102,6 @@ const SignUp = (props) => {
               label = "Full name"
               id = "name"
               onChange={handleForm}
-              value={form.name}
               name="name"
               type="text"
               pattern="^[a-zA-Z]+(\s[a-zA-Z]+)+$"
@@ -122,7 +114,6 @@ const SignUp = (props) => {
               label = "City"
               id = "city"
               onChange={handleForm}
-              value={form.city}
               name="city"
               type="text"
               pattern="[A-Za-z]+"
@@ -135,7 +126,6 @@ const SignUp = (props) => {
               label = "Address"
               id = "address"
               onChange={handleForm}
-              value={form.address}
               name="address"
               type="text"
               required
@@ -146,7 +136,6 @@ const SignUp = (props) => {
               label = "Postal code"
               id = "postalCode"
               onChange={handleForm}
-              value={form.postalCode}
               name="postalCode"
               type="text"
               pattern="\d{5}"
@@ -158,7 +147,6 @@ const SignUp = (props) => {
               label = "Password (>10) "
               id = "password"
               onChange={handleForm}
-              value={form.password}
               name="password"
               type="password"
               pattern="^(?=.*\d).{10,}$"

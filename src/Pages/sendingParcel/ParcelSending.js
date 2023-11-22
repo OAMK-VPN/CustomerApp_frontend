@@ -6,6 +6,7 @@ import api from "../../Instance";
 import { useAuth } from "../../AuthContext";
 import { useState, useEffect } from "react";
 import InputF from './Sending_input'
+import Getback from "../../modules/Getback";
 
 const Usrsettings = () => {
     const {user} = useAuth();
@@ -81,10 +82,7 @@ const Usrsettings = () => {
     return (
         <div className = {styles.parent_container}>
           <form>
-          <div className = {styles.footer}>
-            <Link to = '/parcels' className={styles.getbackLink}>Get back</Link>
-          </div>
-          
+            <Getback/>
           <div className= {styles.input_container}>
             <p className = {styles.pl}>Sending</p>
           </div>
