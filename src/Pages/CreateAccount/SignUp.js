@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { debounce } from "lodash";
 
-
+import api from "../../Instance"
 import styles from "./SignUp.module.css";
 import new_account from "../../assets/new_account.svg"
 import InputField from "./SignUp_input";
