@@ -28,7 +28,6 @@
   width: 80%;
   border-radius: 5px;
   background-color: hsla(0,0%,84.5%,25%);
-
 }
 
 .input_box:hover {
@@ -64,4 +63,80 @@
   color: #163760;
   border-color: #163760;
   box-shadow: 1px 1px 10px 2.5px rgba(0, 0, 0, 0.2);
+}
+
+
+.prompt_div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8); /* Semi-transparent overlay */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 5;
+}
+
+.prompt_form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(255, 255, 255);
+  padding: 25px;
+  max-width: 200px;
+  border: 1px solid #163760;
+  border-radius: 8px;
+}
+
+.prompt_chdiv {
+  margin-bottom: 20px;
+  
+}
+
+.prompt_input {
+  width: 88%;
+  background-color: hsla(0,0%,84.5%,25%);
+  box-sizing: border-box;
+}
+
+.prompt_input:hover {
+  background-color: hsla(0, 0%, 84%, 0.344);
+}
+
+
+.prompt_label {
+  font-size: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 700;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.prompt_button {
+  width: 50%;
+  margin-bottom: 10px;
+  padding: 5px;
+  border: 1px solid;
+  color: white;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 600;
+  background-color: #163760e1;
+}
+
+.prompt_button:hover {
+  cursor: pointer;
+  background-color: #163760;
+
+}
+
+
+
+.prompt_input_wrong {
+  width: 88%;
+  background-color: hsla(0,0%,84.5%,25%);
+  box-shadow: 0 0 5px 2px #25599992;
+  box-sizing: border-box;
 }

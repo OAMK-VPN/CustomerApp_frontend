@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from 'react-hot-toast';
 import styles from "./Login.module.css";
 import { Link } from "react-router-dom";
-import axios from "axios";
-
+import { usersAPI } from "../../Instance";
 import { useNavigate } from 'react-router-dom';
 import login_lock from "../../assets/login_lock.svg"
 import { useAuth } from "../../AuthContext";
@@ -39,16 +38,10 @@ const Login = () => {
     e.preventDefault();
     console.log(loginForm);
     try {
-      const response = await axios.post( login_point, 
+      const response = await usersAPI.put( '/signIn', 
       { 
-        email: loginForm.email,       // will be replaced with email username: email,
+        email: loginForm.email, 
         password: loginForm.password,
-      }, 
-      {
-        headers: 
-        {
-          'Content-Type': 'application/json',
-        },
       });
 
         login({username: response.data.username, token: response.data.token});
@@ -70,7 +63,7 @@ const Login = () => {
       ...loginForm,
       [e.target.name]: e.target.value,
     })
-  }, 300)
+  }, 50)
 
 
 
@@ -83,14 +76,14 @@ const Login = () => {
       alt = 'Login'
       />
       <div>
-        <label className={styles.label} htmlFor="email">Email</label><br/>
+        <label className={styles.label} htmlFor="email">Email (username)</label><br/>
         <input
           className={styles.login_input}
           autoFocus
           id = "email"
           onChange={handleChange}
           name="email"
-          type="email"
+          type="text"
           required
           />
       </div>

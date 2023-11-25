@@ -1,15 +1,12 @@
-import { Routes, Route, Link, useNavigate} from "react-router-dom";
 import styles from './Usrsetings.module.css'
-import getback from '../../assets/get_back.svg'
-import axios from "axios";
-import api from "../../Instance";
-import { useAuth } from "../../AuthContext";
+import { usersAPI } from "../../Instance";
 import { useState, useEffect } from "react";
 import Getback from "../../modules/Getback";
+import CustomPrompt from "./P_prompt";
 
 
 const Usrsettings = () => {
-    const {user} = useAuth();
+    const [showPrompt, setshowPrompt] = useState(false);
     const [settings, setSettings] = useState({
         email: '',
         address: '',
@@ -17,6 +14,8 @@ const Usrsettings = () => {
         postalCode: '',
         name: '',
     });
+
+
 
 
 
@@ -31,20 +30,17 @@ const Usrsettings = () => {
 
     useEffect(() => {
         const fetchSettings = async () => {
-          try {
-            const response = await api.get('/user_settings', {
-              headers: {
-                Authorization: user.token, // bearer
-              },
-            });
-            const userSettings = response.data;
-            setSettings({
-                email: userSettings.email,
-                address: userSettings.address,
-                city: userSettings.city,
-                postalCode: userSettings.postalCode,
-                name: userSettings.name,
-            })
+            try {
+                const response = await usersAPI.get('/authUser/getAuthUser')
+                const userdata = response.data;
+                setSettings({
+                    email: userdata.email,
+                    address: userdata.address,
+                    city: userdata.city,
+                    postalCode: userdata.zipcode,
+                    name: userdata.fullname,
+                    username: userdata.username,
+                })
           } catch (error) {
             console.error('Error during fetch:', error);
           }
@@ -58,7 +54,7 @@ const Usrsettings = () => {
 
 
     const handleDelete = () => {
-        const confirm = prompt(`To confirm this, type ${settings.email}`)
+        const confirm = prompt(`To confirm this, please type: ${settings.email}`)
         if (confirm !== settings.email) {
             alert("Please try again")
         }
@@ -77,7 +73,8 @@ const Usrsettings = () => {
     else {
         alert("Success")
     }
-}
+    }
+
 
 
     return (
@@ -143,22 +140,23 @@ const Usrsettings = () => {
                 />
             </div>
             <div className={styles.input_child_container}>
-                <label className = {styles.settings_label}>Password</label>
+                <label className = {styles.settings_label}>Username</label>
                 <input 
                 className = {styles.input_box} 
-                onChange = {handleSettingsUpdate}  
-                value = {settings.password} 
-                name = "password" 
-                type="password" 
+                disabled = {true}
+                value = {settings.username} 
+                name = "username" 
+                type="text" 
                 />
             </div>    
         </div>
 
         <div className={styles.input_container}>
             <div className={styles.input_child_container}>
-
-            <button className = {styles.buttn} onClick={handleUpdate}>Update settings</button>
-            <button className = {styles.buttn} onClick={handleDelete}>Delete account</button>
+            <button className = {styles.buttn} onClick={() => {setshowPrompt(true)}}>Update password</button>
+            <button className = {styles.buttn} onClick={handleDelete}>Update settings</button>
+            <button className = {styles.buttn} onClick={handleDelete} type = "button">Delete account</button>
+            {showPrompt && <CustomPrompt showPrompt={showPrompt} setshowPrompt={setshowPrompt}/>}
             </div>    
         </div>
         </div> 

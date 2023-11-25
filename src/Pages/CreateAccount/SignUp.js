@@ -4,13 +4,11 @@ import { useNavigate } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import { debounce } from "lodash";
 
-import api from "../../Instance"
 import styles from "./SignUp.module.css";
 import new_account from "../../assets/new_account.svg"
 import InputField from "./SignUp_input";
 const SignUp = (props) => {
 
-    const [valid, setValid] = useState(false);
     const navigate = useNavigate();
     const signup_point = process.env.REACT_APP_SIGNUP_API
     
@@ -72,7 +70,7 @@ const SignUp = (props) => {
             throw new Error();
           }
         } catch (error) {
-          notification_toast("error", "Error", 1000);
+          notification_toast("error", "Error", 800);
         }
       };
 

@@ -1,33 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, useParams, Link } from "react-router-dom";
+import { useNavigate, useParams, Link, useLocation } from "react-router-dom";
 import { useAuth } from "../../AuthContext";
 import logo from "../../assets/test_logo.svg"
-import axios from "axios";
 import styles from "./Parceldetails.module.css";
+import { parcelsAPI } from "../../Instance";
 const ParcelDetails = () => {
   const { parcelID } = useParams();
   const [parcelDetails, setParcelDetails] = useState('');
   const {user} = useAuth();
-  const parcel_details_point = `http://localhost:8080/parcels/${parcelID}`
+  const { state } = useLocation();
+  const [loading, setLoading] = useState(true);
+  const role = state && state.role;
+  const parcel_details_point = `/parcel/${parcelID}/role/${role}`
+
+  
   const navigate = useNavigate();
   useEffect(() => {
     const fetchParcelDetails = async () => {
       try {
-        const response = await axios.get(parcel_details_point, {
-          headers: {
-            Authorization: user.token, // bearer
-          },
-        });
-        
+        const response = await parcelsAPI.get(parcel_details_point)
         setParcelDetails(response.data);
+        console.log(response.data);
       } catch (error) {
-        console.error('Error during fetch:', error);
+          console.error('Error during fetch:', error);
+          navigate('/parcels');
+      } 
+        finally {
+          setLoading(false);
       }
-    };
-
-    fetchParcelDetails();
+    } 
+      fetchParcelDetails();
   }, [parcelID, parcel_details_point, user.token]);
 
+  if (loading) {
+    return <></>
+  }
 
 
   
@@ -37,6 +44,7 @@ const ParcelDetails = () => {
       <img 
         src = {logo}
         style={{ width: '8%', height: 'auto', maxWidth: '45px', padding: '1.5vh'}}
+        alt = "?"
       />
     </Link>  
     
@@ -50,18 +58,18 @@ const ParcelDetails = () => {
       <div className = {styles.details}>
         <ul>
           <li> <b>Id:</b> {parcelDetails.id} </li>
-          <li> <b>Sender:</b> {parcelDetails.senderId} </li>
-          <li> <b>Receiver:</b> {parcelDetails.receiverId} </li>
-          <li> <b>Sent from: </b> {parcelDetails.location} </li>
-          <li> <b>Pickup: </b> Test location 2 </li>
+          <li> <b>Sender:</b> {parcelDetails.sender.fullname} </li>
+          <li> <b>Receiver:</b> {parcelDetails.receiver.fullname} </li>
+          <li> <b>Sent from: </b> {parcelDetails.sender.city.toLowerCase()} </li>
+          <li> <b>Pickup: </b> {parcelDetails.receiver.city.toLowerCase()} </li>
         </ul>
         
         <ul>
-          <li> <b>Status:</b> {parcelDetails.status} </li>
-          <li> <b>Ready to pickup:</b> 17.10.23 16:00 </li>
-          <li> <b>Picked up:</b> 18.10.23 17:32 </li>
-          <li> <b>Code:</b> 0200 </li>
-          <li> <b>Cabinet number:</b> 10 </li>
+          <li> <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} </li>
+          <li> <b>Ready to pickup:</b>  </li>
+          <li> <b>Picked up:</b>  </li>
+          <li> <b>Code:</b> {parcelDetails.cabinet.code} </li>
+          <li> <b>Cabinet number:</b> {parcelDetails.cabinet.number} </li>
         </ul>
       </div>
     </div>

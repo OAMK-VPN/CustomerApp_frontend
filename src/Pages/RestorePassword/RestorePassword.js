@@ -3,8 +3,7 @@ import styles from "./RestorePassword.module.css";
 import { useNavigate } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 import restore_psw from "../../assets/restore_psw.svg"
-import axios from "axios";
-import api from "../../Instance";
+import { usersAPI } from "../../Instance";
 import { debounce } from "lodash";
 
 export default function Login() {
@@ -25,10 +24,10 @@ export default function Login() {
 
     try {
       const enc_email = encodeURIComponent(email);
-      await axios.put(`http://localhost:8080/api/users/forgotPassword/${enc_email}`)
+      await usersAPI.put(`/forgotPassword/${enc_email}`)
     } catch (error) { }
 
-    notification_toast("success", "A new password has been sent to your email", 1200)
+    notification_toast("success", "A new password has been sent to your email", 1000)
     setTimeout(() => {
       navigate('/login')
     }, 1500);
