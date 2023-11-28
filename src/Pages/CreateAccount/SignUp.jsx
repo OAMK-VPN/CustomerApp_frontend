@@ -32,7 +32,6 @@ const SignUp = (props) => {
 
 
     const handleForm = debounce((e) => {
-      console.log(form)
       setForm({
         ...form,
         [e.target.name]: e.target.value,
