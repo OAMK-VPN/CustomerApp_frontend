@@ -6,10 +6,11 @@ import toast, { Toaster } from 'react-hot-toast';
 import { parcelsAPI, usersAPI } from "../../Instance";
 import InputF from './Sending_input'
 import Getback from "../../modules/Getback";
-import styles from './ParcelSending.module.css'
+import styles from './ParcelSending.module.css';
 
 
 
+const getAuthUser_point = '/authUser/getAuthUser';
 const Usrsettings = () => {
     const token = localStorage.getItem("token");
     const notification_toast = (type, message, interval) =>
@@ -50,7 +51,7 @@ const Usrsettings = () => {
     useEffect(() => {
         const fetchSettings = async () => {
           try {
-            const response = await usersAPI.get('/authUser/getAuthUser')
+            const response = await usersAPI.get(getAuthUser_point)
             const userdata = response.data;
             setSettings({
                 sender_email: userdata.email,

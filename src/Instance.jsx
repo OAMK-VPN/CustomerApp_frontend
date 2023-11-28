@@ -1,7 +1,8 @@
 import axios from "axios";
 
 
-
+const usersBASEURL = import.meta.env.VITE_APP_USERS_BASEURL;
+const parcelsBASEURL = import.meta.env.VITE_APP_PARCELS_BASEURL;
 const createApiInstance = (baseURL) => {
     const api = axios.create({
         baseURL,
@@ -23,6 +24,5 @@ const createApiInstance = (baseURL) => {
 };
 
 
-
-export const parcelsAPI = createApiInstance("http://localhost:8080/api/parcels");
-export const usersAPI = createApiInstance("http://localhost:8080/api/users");
+export const usersAPI = createApiInstance(usersBASEURL);
+export const parcelsAPI = createApiInstance(parcelsBASEURL);

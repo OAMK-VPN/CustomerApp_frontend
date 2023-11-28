@@ -3,16 +3,15 @@ import { useNavigate } from 'react-router-dom';
 import { usersAPI } from "../../Instance";
 import { Link } from "react-router-dom";
 import toast, { Toaster } from 'react-hot-toast';
+import { debounce } from "lodash";
 
 import login_lock from "../../assets/login_lock.svg"
 import styles from "./Login.module.css";
 
 
 
-import { debounce } from "lodash";
+const login_point = '/signIn';
 const Login = () => {
-
-  const login_point = import.meta.env.VITE_APP_LOGIN_API;
   const notification_toast = (type, message, interval) =>
   toast[type](
     message, 
@@ -39,7 +38,7 @@ const Login = () => {
     e.preventDefault();
     console.log(loginForm);
     try {
-      const response = await usersAPI.put( '/signIn', 
+      const response = await usersAPI.put(login_point, 
       { 
         email: loginForm.email, 
         password: loginForm.password,

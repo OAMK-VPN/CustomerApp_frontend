@@ -4,6 +4,8 @@ import { parcelsAPI } from "../../Instance";
 
 import styles from "./ParcelsView.module.css";
 
+
+
 export default function Parcel({ parcelID, date, status, role }) {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);

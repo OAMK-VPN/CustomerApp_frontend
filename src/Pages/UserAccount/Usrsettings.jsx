@@ -7,7 +7,7 @@ import CustomPrompt from "./P_prompt";
 import styles from './Usrsetings.module.css'
 
 
-
+const getAuthUser_point = '/authUser/getAuthUser'
 const Usrsettings = () => {
     const navigate = useNavigate();
     const [showPrompt, setshowPrompt] = useState(false);
@@ -34,7 +34,7 @@ const Usrsettings = () => {
     useEffect(() => {
         const fetchSettings = async () => {
             try {
-                const response = await usersAPI.get('/authUser/getAuthUser')
+                const response = await usersAPI.get(getAuthUser_point);
                 const userdata = response.data;
                 setSettings({
                     email: userdata.email,

@@ -9,12 +9,9 @@ import InputField from "./SignUp_input";
 import styles from "./SignUp.module.css";
 
 
-
+const navigate = useNavigate();
+const signup_point = '/signup';
 const SignUp = (props) => {
-
-    const navigate = useNavigate();
-    const signup_point = import.meta.env.VITE_APP_SIGNUP_API
-    
     const notification_toast = (type, message, interval) =>
     toast[type](
       message, 
@@ -22,6 +19,7 @@ const SignUp = (props) => {
       style: { color: '#163760', },
       iconTheme: { primary: '#163760', }
     });
+
 
     const [form, setForm] = useState({
       email: '',
@@ -33,7 +31,6 @@ const SignUp = (props) => {
     })
 
 
-
     const handleForm = debounce((e) => {
       console.log(form)
       setForm({
@@ -43,12 +40,13 @@ const SignUp = (props) => {
     }, 100)
 
 
+
     const submitHandler = async (e) => {
         e.preventDefault();
         let usrnm = Math.random().toString(24).slice(2,12); // username gen
 
         try {
-          const response = await usersAPI.post('/signup', {        
+          const response = await usersAPI.post(signup_point, {        
             username: usrnm,
             email: form.email,
             fullname: form.name,
@@ -66,6 +64,7 @@ const SignUp = (props) => {
           return;
         }
       };
+
 
     return (
         <div className={styles.parent_form}>

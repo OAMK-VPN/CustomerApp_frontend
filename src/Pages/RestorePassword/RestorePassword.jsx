@@ -9,9 +9,10 @@ import styles from "./RestorePassword.module.css";
 
 
 
+const navigate = useNavigate();
 export default function Login() {
   const [email, setEmail] = useState('');
-  const navigate = useNavigate();
+  const enc_email = encodeURIComponent(email);
   const notification_toast = (type, message, interval) =>
   toast[type](
     message, 
@@ -26,7 +27,6 @@ export default function Login() {
     e.preventDefault()
 
     try {
-      const enc_email = encodeURIComponent(email);
       await usersAPI.put(`/forgotPassword/${enc_email}`)
     } catch (error) {
       return;
