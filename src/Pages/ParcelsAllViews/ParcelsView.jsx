@@ -8,8 +8,8 @@ import styles from "./ParcelsView.module.css";
 
 
 
-const sender_parcels_point = '/receiver';
-const receiver_parcels_point = '/sender';
+const sender_parcels_point = '/sender';
+const receiver_parcels_point = '/receiver';
 const ParcelsView = () => {
   const [received_parcels, setReceived_parcels] = useState([]);
   const [sent_parcels, setSent_parcels] = useState([]);
@@ -31,6 +31,7 @@ const ParcelsView = () => {
         const received_parcels = received_parcels_raw.data.map(i => ({...i, role: "RECEIVER"}));
         const sent_parcels = sent_parcels_raw.data.map(i => ({...i, role: "SENDER"}));
         const all_parcels = [...sent_parcels, ...received_parcels]
+        console.log(all_parcels);
 
         setReceived_parcels(received_parcels);
         setSent_parcels(sent_parcels);

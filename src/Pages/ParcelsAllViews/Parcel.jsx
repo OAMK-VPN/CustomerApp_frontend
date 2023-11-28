@@ -40,8 +40,9 @@ export default function Parcel({ parcelID, date, status, role }) {
                    <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} <br/>
                    <b>Ready to pickup:</b> <br/>
                    <b>Picked up:</b>  <br/>
-                   <b>Code:</b> {parcelDetails.cabinet.code} <br/>
+                   <b>Locker:</b> {parcelDetails.cabinet.locker.name} <br/>
                    <b>Cabinet number:</b> {parcelDetails.cabinet.number} <br/>
+                   <b>Code:</b> {parcelDetails.cabinet.code} <br/>
 
                 <button onClick = {() => setShow(false)}className={styles.alert_button}>close</button>
               </div>

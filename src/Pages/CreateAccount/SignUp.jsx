@@ -7,11 +7,13 @@ import { usersAPI } from "../../Instance";
 import new_account from "../../assets/new_account.svg"
 import InputField from "./SignUp_input";
 import styles from "./SignUp.module.css";
+import axios from "axios";
 
 
-const navigate = useNavigate();
-const signup_point = '/signup';
+
+const signup_point = import.meta.env.VITE_APP_USERS_BASEURL + '/signup';
 const SignUp = (props) => {
+    const navigate = useNavigate();
     const notification_toast = (type, message, interval) =>
     toast[type](
       message, 
@@ -45,7 +47,7 @@ const SignUp = (props) => {
         let usrnm = Math.random().toString(24).slice(2,12); // username gen
 
         try {
-          const response = await usersAPI.post(signup_point, {        
+          const response = await axios.post(signup_point, {        
             username: usrnm,
             email: form.email,
             fullname: form.name,
