@@ -8,6 +8,8 @@ import styles from "./ParcelsView.module.css";
 
 
 
+const sender_parcels_point = '/receiver';
+const receiver_parcels_point = '/sender';
 const ParcelsView = () => {
   const [received_parcels, setReceived_parcels] = useState([]);
   const [sent_parcels, setSent_parcels] = useState([]);
@@ -21,9 +23,9 @@ const ParcelsView = () => {
   useEffect(() => {
     const fetchParcels = async () => {
       try {
-        const received_parcels_raw = await parcelsAPI.get('/receiver');
-        await new Promise(resolve => setTimeout(resolve, 100)) // promise all
-        const sent_parcels_raw = await parcelsAPI.get('/sender');
+        const received_parcels_raw = await parcelsAPI.get(receiver_parcels_point);
+        await new Promise(resolve => setTimeout(resolve, 50)) // promise all
+        const sent_parcels_raw = await parcelsAPI.get(sender_parcels_point);
         
 
         const received_parcels = received_parcels_raw.data.map(i => ({...i, role: "RECEIVER"}));
