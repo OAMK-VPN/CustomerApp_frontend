@@ -14,7 +14,7 @@ const Tracking = () => {
   const findParcel = debounce(async () => {
     console.log("click");
     try {
-      const response = await parcelsAPI.get(`/unsecure/tracking/${trackingNumber}`);
+      const response = await parcelsAPI.get(`/public/tracking/${trackingNumber}`);
       setParcelStatus(response.data.status.toLowerCase().replace(/_/g, ' '));
     }
       catch (error) {

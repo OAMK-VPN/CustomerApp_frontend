@@ -44,7 +44,7 @@ const SignUp = (props) => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        let usrnm = Math.random().toString(24).slice(2,12); // username gen
+        const usrnm = Math.random().toString(24).slice(2,12); // username gen
 
         try {
           const response = await axios.post(signup_point, {        

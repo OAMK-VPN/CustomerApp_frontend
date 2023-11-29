@@ -15,6 +15,16 @@ export default function Parcel({ parcelID, date, status, role }) {
 
   const displayDetails = () => {
     if (parcelDetails) {
+      const weight = parcelDetails.weigh;
+      const height = parcelDetails.height;
+      const width = parcelDetails.width;
+      const length = parcelDetails.length;
+      const sender_name = parcelDetails.sender.fullname;
+      const receiver_name = parcelDetails.receiver.fullname;
+      const sender_city = parcelDetails.sender.city;
+      const receiver_city = parcelDetails.receiver.city;
+      const locker = parcelDetails.cabinet.locker.name;
+      const code = parcelDetails.cabinet.code;
       return (
         <tr>
           <td>
@@ -28,21 +38,29 @@ export default function Parcel({ parcelID, date, status, role }) {
                 </div>
 
 
-                   <b>Size: </b> 
-                  {parcelDetails.weigh} kg |&nbsp;
-                  {parcelDetails.height * 100} x {parcelDetails.width * 100} x {parcelDetails.length * 100} 
-                  &nbsp; cm<br/>
-                   <b>Sender:</b> {parcelDetails.sender.fullname} <br/>
-                   <b>Receiver:</b> {parcelDetails.receiver.fullname} <br/>
-                   <b>Sent from: </b> {parcelDetails.sender.city.toLowerCase()} <br/>
-                   <b>Pickup: </b> {parcelDetails.receiver.city.toLowerCase()} <br/>
+                  <b>Size: </b> 
+                  {weight} kg |&nbsp;
+                  {height * 100} x {width * 100} x {length * 100} 
+                  &nbsp; cm <br/>
+                   <b>Sender:</b> {sender_name.toLowerCase()} <br/>
+                   <b>Receiver:</b> {receiver_name.toLowerCase()} <br/>
+                   <b>Sent from: </b> {sender_city.toLowerCase()} <br/>
+                   <b>Sent to: </b> {receiver_city.toLowerCase()} <br/>
 
                    <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} <br/>
+                   
                    <b>Ready to pickup:</b> <br/>
-                   <b>Picked up:</b>  <br/>
-                   <b>Locker:</b> {parcelDetails.cabinet.locker.name} <br/>
-                   <b>Cabinet number:</b> {parcelDetails.cabinet.number} <br/>
-                   <b>Code:</b> {parcelDetails.cabinet.code} <br/>
+                   <b>Picked up:</b> {parcelDetails.pickupDate} <br/>
+                   {code ? (
+                    <>
+                    <b>Locker:</b> {locker} <br/>
+                    <b>Code:</b> {code} <br/>
+                    </>
+                   ) : (null)
+                   }
+
+                   
+                   
 
                 <button onClick = {() => setShow(false)}className={styles.alert_button}>close</button>
               </div>
