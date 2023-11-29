@@ -64,16 +64,6 @@ const App = () => {
               </ErrorBoundary>} 
             />
 
-            <Route path="/parcels" element={
-              <ErrorBoundary
-                FallbackComponent={<NotFound/>}
-                onReset={() => navigate('/')}>
-                <Suspense fallback = {<Loadsk/>}>
-                  <Parcels />
-                </Suspense>
-              </ErrorBoundary>} 
-            />
-
             <Route path="/track" element={
               <ErrorBoundary
                 FallbackComponent={<NotFound/>}
