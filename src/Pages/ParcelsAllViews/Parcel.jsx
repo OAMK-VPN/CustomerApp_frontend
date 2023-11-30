@@ -19,8 +19,8 @@ export default function Parcel({ parcelID, date, status, role }) {
       const height = parcelDetails.height ?? '';
       const width = parcelDetails.width ?? '';
       const length = parcelDetails.length ?? '';
-      const sender_name = parcelDetails.sender.fullname ?? '';
-      const receiver_name = parcelDetails.receiver.fullname ?? '';
+      const sender_name = parcelDetails.sender?.fullname ?? '';
+      const receiver_name = parcelDetails.receiver?.fullname ?? '';
       const sender_city = parcelDetails.sender.city ?? '';
       const receiver_city = parcelDetails.receiver.city;
       const locker = parcelDetails.cabinet?.locker?.name ?? '';
@@ -40,18 +40,16 @@ export default function Parcel({ parcelID, date, status, role }) {
 
 
                   <b>Size: </b> 
-                  {weight} kg |&nbsp;
-                  {height * 100} x {width * 100} x {length * 100} 
-                  &nbsp; cm <br/>
+                  {Math.round(height * 100)} x {Math.round(width * 100)} x {Math.round(length * 100)} 
+                  &nbsp; cm |&nbsp; {Math.round(weight)} kg  <br/>
+
                    <b>Sender:</b> {sender_name.toLowerCase()} <br/>
                    <b>Receiver:</b> {receiver_name.toLowerCase()} <br/>
                    <b>Sent from: </b> {sender_city.toLowerCase()} <br/>
                    <b>Sent to: </b> {receiver_city.toLowerCase()} <br/>
-
                    <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} <br/>
-                   
-                   <b>Ready to pickup:</b> <br/>
-                   <b>Picked up:</b> {parcelDetails.pickupDate ? parcelDetails.pickupDate.slice(0,10): ''} <br/>
+                   <b>Ready to pickup:</b> {parcelDetails.sendDateDriver ? parcelDetails.sendDateDriver.slice(0,10): '-'} <br/>
+                   <b>Picked up:</b> {parcelDetails.pickupDate ? parcelDetails.pickupDate.slice(0,10): '-'} <br/>
                    {code ? (
                     <>
                     <b>Locker:</b> {locker} <br/>

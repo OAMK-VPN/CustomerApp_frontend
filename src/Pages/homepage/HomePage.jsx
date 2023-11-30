@@ -7,19 +7,22 @@ import logo from "../../assets/test_logo.svg"
 
 
 const HomePage = () => {
-  const [currentForm, setCurrentForm] = useState('');
-
   const navigate = useNavigate();
-  const toggleForm = (formName) => {
-    setCurrentForm(formName);
+  const token = localStorage.getItem("token");
+  
+  const handleTracking = () => {
+    navigate('track');
+    return;
   }
 
   const handleMyPost = () => {
-    navigate('login');
+    token ? (navigate('parcels')) : (navigate('login'));
+    return;
   }
 
-  const handleTracking = () => {
-    navigate('track');
+  const handleSending = () => {
+    token ? (navigate('send')) : (navigate('login'));
+    return;
   }
 
 
@@ -49,7 +52,7 @@ const HomePage = () => {
 
 
         <div className= {styles.buttons_container}>
-          <button className= {styles.bottom_button}>
+          <button className= {styles.bottom_button} onClick={handleSending}>
             <span>Send parcel</span>
           </button>
 
