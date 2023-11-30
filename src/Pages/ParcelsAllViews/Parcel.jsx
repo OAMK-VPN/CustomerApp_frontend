@@ -23,8 +23,9 @@ export default function Parcel({ parcelID, date, status, role }) {
       const receiver_name = parcelDetails.receiver.fullname;
       const sender_city = parcelDetails.sender.city;
       const receiver_city = parcelDetails.receiver.city;
-      const locker = parcelDetails.cabinet.locker.name;
-      const code = parcelDetails.cabinet.code;
+      const locker = parcelDetails.cabinet?.locker?.name ?? '';
+      const code = parcelDetails.cabinet?.code ?? '';
+    
       return (
         <tr>
           <td>
@@ -50,7 +51,7 @@ export default function Parcel({ parcelID, date, status, role }) {
                    <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} <br/>
                    
                    <b>Ready to pickup:</b> <br/>
-                   <b>Picked up:</b> {parcelDetails.pickupDate} <br/>
+                   <b>Picked up:</b> {parcelDetails ? parcelDetails.pickupDate.slice(0,10): ''} <br/>
                    {code ? (
                     <>
                     <b>Locker:</b> {locker} <br/>
