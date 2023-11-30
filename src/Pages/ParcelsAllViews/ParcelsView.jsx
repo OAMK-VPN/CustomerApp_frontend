@@ -23,10 +23,12 @@ const ParcelsView = () => {
   useEffect(() => {
     const fetchParcels = async () => {
       try {
-        const received_parcels_raw = await parcelsAPI.get(receiver_parcels_point);
-        await new Promise(resolve => setTimeout(resolve, 50)) // promise all
-        const sent_parcels_raw = await parcelsAPI.get(sender_parcels_point);
-        
+        const [received_parcels_raw, sent_parcels_raw] = await Promise.all([
+          parcelsAPI.get(receiver_parcels_point),
+          parcelsAPI.get(sender_parcels_point)
+        ])
+
+
 
         const received_parcels = received_parcels_raw.data.map(i => ({...i, role: "RECEIVER"}));
         const sent_parcels = sent_parcels_raw.data.map(i => ({...i, role: "SENDER"}));

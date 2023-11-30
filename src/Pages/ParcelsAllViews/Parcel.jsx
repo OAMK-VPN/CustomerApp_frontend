@@ -51,7 +51,7 @@ export default function Parcel({ parcelID, date, status, role }) {
                    <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} <br/>
                    
                    <b>Ready to pickup:</b> <br/>
-                   <b>Picked up:</b> {parcelDetails ? parcelDetails.pickupDate.slice(0,10): ''} <br/>
+                   <b>Picked up:</b> {parcelDetails.pickupDate ? parcelDetails.pickupDate.slice(0,10): ''} <br/>
                    {code ? (
                     <>
                     <b>Locker:</b> {locker} <br/>
