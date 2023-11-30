@@ -144,7 +144,7 @@ const Usrsettings = () => {
                 <input 
                 className = {styles.input_box} 
                 onChange = {handleSettingsUpdate}  
-                value = {settings.city || ''} 
+                value = {settings.city.toLowerCase() || ''} 
                 name = "city" 
                 type="text" 
                 pattern="[A-Za-z]+"

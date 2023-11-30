@@ -15,17 +15,17 @@ export default function Parcel({ parcelID, date, status, role }) {
 
   const displayDetails = () => {
     if (parcelDetails) {
-      const weight = parcelDetails.weigh;
-      const height = parcelDetails.height;
-      const width = parcelDetails.width;
-      const length = parcelDetails.length;
-      const sender_name = parcelDetails.sender.fullname;
-      const receiver_name = parcelDetails.receiver.fullname;
-      const sender_city = parcelDetails.sender.city;
+      const weight = parcelDetails.weigh ?? '';
+      const height = parcelDetails.height ?? '';
+      const width = parcelDetails.width ?? '';
+      const length = parcelDetails.length ?? '';
+      const sender_name = parcelDetails.sender.fullname ?? '';
+      const receiver_name = parcelDetails.receiver.fullname ?? '';
+      const sender_city = parcelDetails.sender.city ?? '';
       const receiver_city = parcelDetails.receiver.city;
       const locker = parcelDetails.cabinet?.locker?.name ?? '';
       const code = parcelDetails.cabinet?.code ?? '';
-    
+      
       return (
         <tr>
           <td>
