@@ -10,13 +10,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 10vh;
+  margin-top: 5vh;
 }
 
 
 .form {
     background-color:#ffffff;
-    height: 80vh;
+    height: 85vh;
     width: 35vh;
     display: flex;
     flex-direction: column;
