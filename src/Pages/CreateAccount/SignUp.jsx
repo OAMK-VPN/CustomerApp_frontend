@@ -3,7 +3,7 @@ import { debounce } from "lodash";
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { usersAPI } from "../../Instance";
+
 import new_account from "../../assets/new_account.svg"
 import InputField from "./SignUp_input";
 import styles from "./SignUp.module.css";

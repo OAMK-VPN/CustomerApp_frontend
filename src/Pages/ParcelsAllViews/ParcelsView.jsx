@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from "react";
 import { useNavigate, Link } from 'react-router-dom';
+import toast, { Toaster } from 'react-hot-toast';
 
-import { parcelsAPI } from "../../Instance";
+import { parcelsAPI, notificationsAPI } from "../../Instance";
 import Parcel from "./Parcel";
 import logo from "../../assets/test_logo.svg"
 import styles from "./ParcelsView.module.css";
@@ -15,9 +16,20 @@ const ParcelsView = () => {
   const [sent_parcels, setSent_parcels] = useState([]);
   const [all_parcels, setAll_parcels] = useState([]);
   const [parcels, setParcels] = useState([]);
+  const [notification, setNotification] = useState(false);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const token = localStorage.getItem('token');
+  const notification_toast = (type, message, interval) =>
+  toast[type](
+    message, 
+  { duration: interval,
+    style: { color: '#163760', },
+    iconTheme: { primary: '#163760', }
+  });
+
+
+
 
   
   useEffect(() => {
@@ -40,6 +52,18 @@ const ParcelsView = () => {
         setAll_parcels(all_parcels);
         setParcels(all_parcels);
 
+
+        try {
+          const response = await notificationsAPI.get()
+          console.log("NOTIFICATIONS", response.data.read);
+          if (response.data.read == false) {
+            setNotification(true);
+            await notificationsAPI.put()
+          }
+        }
+        catch (error) {
+        }
+
       } 
       catch (error) {
         navigate('/login', {replace: true});
@@ -58,11 +82,20 @@ const ParcelsView = () => {
       navigate("/login", {replace: true});
       return
     }
-  }, [token, navigate]);
+  }, [token]);
+
+  useEffect(() => {
+    if (notification) {
+      notification_toast("success", "You've got a new parcel", 3500);
+      setNotification(false); 
+    }
+  }, [notification]);
 
   if (loading) {
     return <></>
   }
+
+
 
 
 
@@ -84,6 +117,7 @@ const ParcelsView = () => {
     localStorage.removeItem("token");
     return;
   }
+
 
 
 
@@ -146,6 +180,7 @@ const ParcelsView = () => {
             </table>
           </div>
           </div>
+          <Toaster />
     </div>
   );
 };

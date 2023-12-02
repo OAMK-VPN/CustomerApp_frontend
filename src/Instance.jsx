@@ -3,6 +3,8 @@ import axios from "axios";
 
 const usersBASEURL = import.meta.env.VITE_APP_USERS_BASEURL;
 const parcelsBASEURL = import.meta.env.VITE_APP_PARCELS_BASEURL;
+const notificationsBASEURL = import.meta.env.VITE_APP_NOTIFICATIONS_BASEURL;
+
 const createApiInstance = (baseURL) => {
     const api = axios.create({
         baseURL,
@@ -26,3 +28,4 @@ const createApiInstance = (baseURL) => {
 
 export const usersAPI = createApiInstance(usersBASEURL);
 export const parcelsAPI = createApiInstance(parcelsBASEURL);
+export const notificationsAPI = createApiInstance(notificationsBASEURL);
