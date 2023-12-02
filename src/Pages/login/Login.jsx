@@ -118,7 +118,7 @@ const Login = () => {
       </div>
       
       <button className={styles.login_button} type="submit">Login</button> <br />
-      <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link> <br />
+      <Link to={`/RestorePassword`} className={styles.restore_password}>Restore Password</Link>
       <Link to={`/signup`} className={styles.create_account}>Create Account</Link>
     
       </form>
