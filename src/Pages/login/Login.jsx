@@ -61,8 +61,9 @@ const Login = () => {
             return;
           }
         }
-        notification_toast('success', 'Success', 750);
+        const s_toast = notification_toast('success', 'Success', 700);
         setTimeout(() => {
+          toast.remove(s_toast);
           navigate(`/parcels`);
         }, 750)
 

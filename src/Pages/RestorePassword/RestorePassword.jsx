@@ -9,8 +9,9 @@ import styles from "./RestorePassword.module.css";
 
 
 
-const navigate = useNavigate();
+
 export default function Login() {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const enc_email = encodeURIComponent(email);
   const notification_toast = (type, message, interval) =>

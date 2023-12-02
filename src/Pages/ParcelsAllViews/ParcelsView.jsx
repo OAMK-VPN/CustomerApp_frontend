@@ -86,7 +86,8 @@ const ParcelsView = () => {
 
   useEffect(() => {
     if (notification) {
-      notification_toast("success", "You've got a new parcel", 3500);
+      notification_toast("success", "You've got a new parcel", 2500);
+      toast.remove();
       setNotification(false); 
     }
   }, [notification]);
