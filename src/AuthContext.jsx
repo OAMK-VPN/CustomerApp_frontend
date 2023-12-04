@@ -18,7 +18,6 @@ const AuthProvider = ({ children }) => {
   };
 
   const refreshToken = () => {
-    console.log('Refreshing user token...');
   };
 
   useEffect(() => {

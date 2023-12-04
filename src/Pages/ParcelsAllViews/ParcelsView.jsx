@@ -45,7 +45,6 @@ const ParcelsView = () => {
         const received_parcels = received_parcels_raw.data.map(i => ({...i, role: "RECEIVER"}));
         const sent_parcels = sent_parcels_raw.data.map(i => ({...i, role: "SENDER"}));
         const all_parcels = [...sent_parcels, ...received_parcels]
-        console.log(all_parcels);
 
         setReceived_parcels(received_parcels);
         setSent_parcels(sent_parcels);
@@ -55,7 +54,6 @@ const ParcelsView = () => {
 
         try {
           const response = await notificationsAPI.get()
-          console.log("NOTIFICATIONS", response.data.read);
           if (response.data.read == false) {
             setNotification(true);
             await notificationsAPI.put()
@@ -86,9 +84,14 @@ const ParcelsView = () => {
 
   useEffect(() => {
     if (notification) {
-      notification_toast("success", "You've got a new parcel", 2500);
-      toast.remove();
-      setNotification(false); 
+      setTimeout(() => {
+        notification_toast("success", "You've got a new parcel", 2000);
+        setNotification(false);
+        setTimeout(() => {
+          toast.remove();
+        }, 2200)
+      }, 100); 
+
     }
   }, [notification]);
 
@@ -172,7 +175,8 @@ const ParcelsView = () => {
                     key={parcel.id}
                   />
 
-                ))) : (
+                )).reverse()
+                ) : (
                   <tr>
                     <td className = {styles.tableC}></td>
                   </tr>

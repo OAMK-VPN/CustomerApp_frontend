@@ -24,6 +24,7 @@ export default function Parcel({ parcelID, date, status, role }) {
       const sender_city = parcelDetails.sender.city ?? '';
       const receiver_city = parcelDetails.receiver.city;
       const locker = parcelDetails.cabinet?.locker?.name ?? '';
+      const locker_zip = parcelDetails.cabinet?.locker?.zipcode ?? '';
       const code = parcelDetails.cabinet?.code ?? '';
       
       return (
@@ -53,6 +54,7 @@ export default function Parcel({ parcelID, date, status, role }) {
                    {code ? (
                     <>
                     <b>Locker:</b> {locker} <br/>
+                    <b>Location zip:</b> {locker_zip} <br/>
                     <b>Code:</b> {code} <br/>
                     </>
                    ) : (null)

@@ -12,7 +12,6 @@ const Tracking = () => {
   const [parcelStatus, setParcelStatus] = useState('');
   const [error, setError] = useState(null);
   const findParcel = debounce(async () => {
-    console.log("click");
     try {
       const response = await parcelsAPI.get(`/public/tracking/${trackingNumber}`);
       setParcelStatus(response.data.status.toLowerCase().replace(/_/g, ' '));
@@ -29,7 +28,6 @@ const Tracking = () => {
 
       const setTracking = debounce((e) => {
         setTrackingNumber(e.target.value);
-        console.log(e.target.value);
       }, 250)
 
 

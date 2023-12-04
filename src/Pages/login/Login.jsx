@@ -24,19 +24,19 @@ const Login = () => {
     email: '',
     password: '',
   })
-
   
   const navigate = useNavigate();
-  const resetForm = () => {
-    setEmail('');
-    setPassword('');
-  }
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/parcels", { replace: true})
+      return;
+    }
+  }, [navigate]);
 
 
 
   const loginHandler = async (e) => {
     e.preventDefault();
-    console.log(loginForm);
     try {
       const response = await usersAPI.put(login_point, 
       { 
@@ -75,12 +75,11 @@ const Login = () => {
 
 
   const handleChange = debounce((e) => {
-    console.log(loginForm);
     setLoginForm({
       ...loginForm,
       [e.target.name]: e.target.value,
     })
-  }, 50)
+  }, 80)
 
 
 

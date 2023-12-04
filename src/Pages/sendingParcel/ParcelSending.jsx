@@ -82,8 +82,9 @@ const Usrsettings = () => {
             width: parceldata.parcel_width / 100 ,
             length: parceldata.parcel_length / 100 ,
           })
-          notification_toast("success", "Parsel sent", 700);
+          const s_toast = notification_toast("success", "Parsel sent", 700);
           setTimeout(() => {
+            toast.remove(s_toast);
             navigate(`/parcels`);
           }, 750)
         }
