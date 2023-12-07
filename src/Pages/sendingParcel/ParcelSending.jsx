@@ -50,6 +50,7 @@ const Usrsettings = () => {
 
     useEffect(() => {
         const fetchSettings = async () => {
+          document.title = 'APost | Send';
           try {
             const response = await usersAPI.get(getAuthUser_point)
             const userdata = response.data;
@@ -195,6 +196,7 @@ const Usrsettings = () => {
               type = "number"
               min = "0.1"
               step = "0.1"
+              max = "5"
               required 
             />
 
@@ -204,6 +206,7 @@ const Usrsettings = () => {
               name = "parcel_height"
               type = "number" 
               min = "5"
+              max = "50"
               required
             /> 
         </div>
@@ -215,6 +218,7 @@ const Usrsettings = () => {
               name = "parcel_length"
               type = "number"
               min = "5" 
+              max = "50"
               required
             /> 
             
@@ -224,6 +228,7 @@ const Usrsettings = () => {
               name = "parcel_width"
               type = "number"
               min = "5" 
+              max = "50"
               required
             />  
         </div>

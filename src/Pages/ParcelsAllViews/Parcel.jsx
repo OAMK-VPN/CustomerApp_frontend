@@ -14,6 +14,21 @@ export default function Parcel({ parcelID, date, status, role }) {
   const parcel_details_point = `/parcel/${parcelID}/role/${role}`;
 
   const displayDetails = () => {
+    if (loading) {
+      return (
+        <tr>
+          <td>
+            <div className={styles.window_alert_div}>
+              <div className={styles.window_alert_chdiv}>
+                Loading...
+              </div>
+            </div>
+          </td>
+        </tr>
+      )
+    }
+
+
     if (parcelDetails) {
       const weight = parcelDetails.weigh ?? '';
       const height = parcelDetails.height ?? '';
@@ -26,17 +41,29 @@ export default function Parcel({ parcelID, date, status, role }) {
       const locker = parcelDetails.cabinet?.locker?.name ?? '';
       const locker_zip = parcelDetails.cabinet?.locker?.zipcode ?? '';
       const code = parcelDetails.cabinet?.code ?? '';
+      console.log(parcelDetails)
       
       return (
         <tr>
           <td>
             <div className={styles.window_alert_div}>
-              <div
-                className={styles.window_alert_chdiv}>
+              <div className={styles.window_alert_chdiv}>
                 <div className={styles.window_alert_parcelid}>
-                  <b>Tracking number:</b>
-                  <br />
-                  <span>{parcelDetails.trackingNumber}</span>
+                {code ? 
+                (
+                    <>
+                    <b>Location:</b> {locker} <br/>
+                    <b>Location zip:</b> {locker_zip} <br/>
+                    <b>Code:</b> <u>{code}</u> <br/>
+                    </>
+                )   : 
+                (   <>
+                    <b>Tracking number:</b>
+                    <br />
+                    <span>{parcelDetails.trackingNumber ? parcelDetails.trackingNumber : ''}</span>
+                    </>
+                   )
+                   }
                 </div>
 
 
@@ -51,18 +78,8 @@ export default function Parcel({ parcelID, date, status, role }) {
                    <b>Status:</b> {parcelDetails.status.toLowerCase().replace(/_/g, ' ')} <br/>
                    <b>Ready to pickup:</b> {parcelDetails.sendDateDriver ? parcelDetails.sendDateDriver.slice(0,10): '-'} <br/>
                    <b>Picked up:</b> {parcelDetails.pickupDate ? parcelDetails.pickupDate.slice(0,10): '-'} <br/>
-                   {code ? (
-                    <>
-                    <b>Locker:</b> {locker} <br/>
-                    <b>Location zip:</b> {locker_zip} <br/>
-                    <b>Code:</b> {code} <br/>
-                    </>
-                   ) : (null)
-                   }
 
                    
-                   
-
                 <button onClick = {() => setShow(false)}className={styles.alert_button}>close</button>
               </div>
             </div>
@@ -98,7 +115,7 @@ export default function Parcel({ parcelID, date, status, role }) {
           {status.toLowerCase().replace(/_/g, " ")}
         </td>
       </tr>
-      {show && !loading && displayDetails()}
+      {show && displayDetails()}
     </>
   );
 }

@@ -12,6 +12,7 @@ import styles from "./Login.module.css";
 
 const login_point = '/signIn';
 const Login = () => {
+  const navigate = useNavigate();
   const notification_toast = (type, message, interval) =>
   toast[type](
     message, 
@@ -25,13 +26,14 @@ const Login = () => {
     password: '',
   })
   
-  const navigate = useNavigate();
+
   useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/parcels", { replace: true})
-      return;
-    }
-  }, [navigate]);
+    document.title = 'APost | Login';
+    //if (localStorage.getItem("token")) {
+    //  navigate("/parcels", { replace: true})
+    //  return;
+    //}
+  }, []);
 
 
 

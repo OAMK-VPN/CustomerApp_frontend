@@ -3,6 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import toast, { Toaster } from 'react-hot-toast';
 
 import { parcelsAPI, notificationsAPI } from "../../Instance";
+import Loadsk from "../../Loadsk"; 
 import Parcel from "./Parcel";
 import logo from "../../assets/test_logo.svg"
 import styles from "./ParcelsView.module.css";
@@ -33,6 +34,7 @@ const ParcelsView = () => {
 
   
   useEffect(() => {
+    document.title = 'APost | Parcels';
     const fetchParcels = async () => {
       try {
         const [received_parcels_raw, sent_parcels_raw] = await Promise.all([
@@ -96,7 +98,7 @@ const ParcelsView = () => {
   }, [notification]);
 
   if (loading) {
-    return <></>
+    return <Loadsk />
   }
 
 
@@ -169,7 +171,7 @@ const ParcelsView = () => {
                 parcels.map((parcel) => (
                   <Parcel
                     parcelID={parcel.id}
-                    date={parcel.dateCreated}
+                    date={parcel.dateUpdated}
                     status={parcel.status}
                     role={parcel.role}
                     key={parcel.id}

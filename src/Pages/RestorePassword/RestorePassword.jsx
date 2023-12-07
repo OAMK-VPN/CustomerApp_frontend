@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from 'react-router-dom';
 import { usersAPI } from "../../Instance";
 import { debounce } from "lodash";
@@ -22,6 +22,10 @@ export default function Login() {
     style: { color: '#163760', },
     iconTheme: { primary: '#163760', }
   });
+
+  useEffect(() => {
+    document.title = 'APost | Restore Password';
+    }, []);
 
 
 

@@ -33,6 +33,7 @@ const Usrsettings = () => {
 
     useEffect(() => {
         const fetchSettings = async () => {
+            document.title = 'APost | Settings';
             try {
                 const response = await usersAPI.get(getAuthUser_point);
                 const userdata = response.data;

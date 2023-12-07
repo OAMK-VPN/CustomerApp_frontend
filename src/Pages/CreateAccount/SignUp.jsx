@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { debounce } from "lodash";
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
@@ -31,6 +31,10 @@ const SignUp = (props) => {
       postalCode: '',
       password: '',
     })
+
+    useEffect(() => {
+      document.title = 'APost | Sign Up';
+      }, []);
 
 
     const handleForm = debounce((e) => {

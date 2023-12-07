@@ -15,12 +15,12 @@ const CustomPrompt = ({showPrompt, setshowPrompt}) => {
         new_pwd: '',
     })
 
-    const handlepwdUpdate = debounce((e) => {
+    const handlepwdUpdate = (e) => {
         updatePwd({
             ...pwd,
             [e.target.name]: e.target.value,
         });
-    }, 75);
+    };
 
     const submitHandler = async (e) => {
         e.preventDefault();
@@ -51,6 +51,7 @@ const CustomPrompt = ({showPrompt, setshowPrompt}) => {
                         className={error ? styles.prompt_input_wrong : styles.prompt_input}
                         id="1"
                         onChange={handlepwdUpdate}
+                        value = {pwd.current_pwd}
                         name="current_pwd"
                         type="text"
                         required
@@ -62,7 +63,8 @@ const CustomPrompt = ({showPrompt, setshowPrompt}) => {
                         className={styles.prompt_input}
                         id="2"
                         onChange={handlepwdUpdate}
-                        name="current_pwd"
+                        value = {pwd.new_pwd}
+                        name="new_pwd"
                         type="text"
                         pattern="^(?=.*\d).{10,}$"
                         title="password must contain at least 1 number"
