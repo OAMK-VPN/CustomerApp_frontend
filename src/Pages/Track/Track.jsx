@@ -12,17 +12,21 @@ const Tracking = () => {
   const [parcelStatus, setParcelStatus] = useState('');
   const [error, setError] = useState(null);
   const findParcel = debounce(async () => {
+    
     try {
+      setError(false);
       const response = await parcelsAPI.get(`/public/tracking/${trackingNumber}`);
       setParcelStatus(response.data.status.toLowerCase().replace(/_/g, ' '));
+
     }
       catch (error) {
         setError(true);
-      }}, 1000);
+      }}, 500);
 
 
       const debouncedFindParcel = (e) => {
         e.preventDefault();
+        setParcelStatus('');
         findParcel();
       }
 

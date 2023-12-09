@@ -41,7 +41,7 @@ export default function Parcel({ parcelID, date, status, role }) {
       const locker = parcelDetails.cabinet?.locker?.name ?? '';
       const locker_zip = parcelDetails.cabinet?.locker?.zipcode ?? '';
       const code = parcelDetails.cabinet?.code ?? '';
-      console.log(parcelDetails)
+
       
       return (
         <tr>

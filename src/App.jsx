@@ -15,6 +15,7 @@ const Tracking = lazy(() => import('./Pages/Track/Track'))
 const Settings = lazy(() => import('./Pages/UserAccount/Usrsettings'))
 const PSending = lazy(() => import('./Pages/sendingParcel/ParcelSending'))
 
+
 const App = () => {
   const navigate = useNavigate();
   return (

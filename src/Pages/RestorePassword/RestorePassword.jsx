@@ -10,10 +10,11 @@ import styles from "./RestorePassword.module.css";
 
 
 
-export default function Login() {
+export default function RestorePassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const enc_email = encodeURIComponent(email);
+  const token = localStorage.getItem("token");
   
   const notification_toast = (type, message, interval) =>
   toast[type](
@@ -31,7 +32,9 @@ export default function Login() {
 
   const restorePassword = async (e) => {
     e.preventDefault()
-
+    if (token) {
+      localStorage.removeItem("token");
+    }
     try {
       await usersAPI.put(`/forgotPassword/${enc_email}`)
     } catch (error) {
