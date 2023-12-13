@@ -66,6 +66,7 @@ const ParcelsView = () => {
 
       } 
       catch (error) {
+        localStorage.removeItem("token");
         navigate('/login', {replace: true});
         return
       }
@@ -92,7 +93,7 @@ const ParcelsView = () => {
         setTimeout(() => {
           toast.remove();
         }, 2200)
-      }, 100); 
+      }, 500); 
 
     }
   }, [notification]);

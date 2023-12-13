@@ -36,7 +36,7 @@ export default function RestorePassword() {
       localStorage.removeItem("token");
     }
     try {
-      await usersAPI.put(`/forgotPassword/${enc_email}`)
+      await usersAPI.put(`/forgotPassword?email=${enc_email}`)
     } catch (error) {
      }
 

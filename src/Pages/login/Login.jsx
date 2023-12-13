@@ -29,10 +29,10 @@ const Login = () => {
 
   useEffect(() => {
     document.title = 'APost | Login';
-    //if (localStorage.getItem("token")) {
-    //  navigate("/parcels", { replace: true})
-    //  return;
-    //}
+    if (localStorage.getItem("token")) {
+      navigate("/parcels", { replace: true})
+      return;
+    }
   }, []);
 
 
